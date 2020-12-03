@@ -1,0 +1,2 @@
+# swacademy_structure
+structure
