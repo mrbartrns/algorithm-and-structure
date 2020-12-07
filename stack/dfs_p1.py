@@ -2,7 +2,7 @@ def dfs(graph, start, end):
     stack = [start]
     visited = []
     while stack:
-        u = stack.pop() # stack에서 아이템을 빼낸다.
+        u = stack.pop()  # stack에서 아이템을 빼낸다.
         visited.append(u)
         if end in visited:
             return 1
@@ -10,6 +10,7 @@ def dfs(graph, start, end):
             if v not in visited and v not in stack:
                 stack.append(v)
     return 0
+
 
 t = int(input())
 for i in range(t):
@@ -22,4 +23,4 @@ for i in range(t):
             graph[b] = []
         # graph[b] = graph.get(b, []) + [a]
     start, end = map(int, input().split())
-    print(f'#{i + 1} {dfs(graph, start, end)}')
+    print(f"#{i + 1} {dfs(graph, start, end)}")

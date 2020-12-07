@@ -3,7 +3,7 @@ maze = [
     [1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1],
-    [1, 0, 0, 2, 1]
+    [1, 0, 0, 2, 1],
 ]
 
 zeros = []
@@ -13,10 +13,11 @@ issued = [
     [True, False, True, False, True],
     [True, False, True, False, True],
     [True, False, True, False, True],
-    [True, False, False, False, True]
+    [True, False, False, False, True],
 ]
 
 counts = 0
+
 
 def get_route(arr, x, y):
     global zeros, issued, counts
@@ -44,6 +45,7 @@ def get_route(arr, x, y):
             if arr[x][y] == 0:
                 zeros.pop()
             issued[x][y] = False
+
 
 get_route(maze, 4, 3)
 print(counts)

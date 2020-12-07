@@ -3,18 +3,11 @@ from circle_queue import CQueue
 # size = 5
 # queue = CQueue(5)
 
-graph_list = {
-    1: [3, 4],
-    2: [3, 4, 5],
-    3: [1, 5],
-    4: [1],
-    5: [2, 6],
-    6: [3, 5]
-}
+graph_list = {1: [3, 4], 2: [3, 4, 5], 3: [1, 5], 4: [1], 5: [2, 6], 6: [3, 5]}
 
 
 def bfs(tree: dict or list, root):
-    size = len(tree) # size is number of nodes
+    size = len(tree)  # size is number of nodes
     to_visit = CQueue(size)
     visited = []
     to_visit.enqueue(root)
@@ -27,9 +20,10 @@ def bfs(tree: dict or list, root):
                 to_visit.enqueue(i)
     return visited
 
+
 # 그냥 복습차 > dfs는 재귀로도 구현이 가능
 def dfs(tree: dict or list, root):
-    to_visit = [root] # stack
+    to_visit = [root]  # stack
     visited = []
     while to_visit:
         v = to_visit.pop()
@@ -39,6 +33,7 @@ def dfs(tree: dict or list, root):
             if i not in visited:
                 to_visit.append(i)
     return visited
+
 
 root = 1
 stack = [root]
@@ -55,6 +50,7 @@ def dfs_rec(tree, root, stack, visited):
             for i in tree[v]:
                 stack.append(i)
         dfs_rec(tree, root, stack, visited)
+
 
 print(bfs(graph_list, 1))
 print(dfs(graph_list, 1))

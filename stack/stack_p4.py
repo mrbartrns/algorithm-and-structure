@@ -14,4 +14,4 @@ def solve(string):
 t = int(input())
 for i in range(t):
     string = input()
-    print(f'#{i + 1} {solve(string)}')
+    print(f"#{i + 1} {solve(string)}")
