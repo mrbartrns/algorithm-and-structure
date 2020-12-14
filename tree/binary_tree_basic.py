@@ -32,12 +32,13 @@ class BinaryTree:
     """
     class BinaryTree는 node클래스를 기본으로 받는다고 가정하고 코드를 작성한다.
     """
+
     def __init__(self):
         self.root = None
-    
+
     def size(self):
         return self.root.size() if self.root else 0
-    
+
     def depth(self):
         return self.root.depth() if self.root else 0
 
@@ -54,28 +55,28 @@ class BinaryTree:
             else:
                 node.right = self._insert_value(node.right, data)
         return node
-    
+
     def find(self, key):
         return self._find_value(self.root, key)
 
-    def _find_value(self, key):
+    def _find_value(self, root, key):
         if root is None or root.data == key:
             return root is not None
         elif key < root.data:
             return self._find_value(root.left, key)
         else:
             return self._find_value(root.right, key)
-    
+
     def delete(self, key):
         self.root, deleted = self._delete_value(self.root, key)
         return deleted
-    
+
     def _delete_value(self, node, key):
         if node is None:
             return node, False
-        
+
         deleted = False
-        if key == node.data::
+        if key == node.data:
             deleted = True
             if node.left and node.right:
                 parent, child = node, node.right
@@ -92,5 +93,6 @@ class BinaryTree:
                 node = None
         elif key < node.data:
             node.left, deleted = self._delete_value(node.left, key)
-            node.right, deleted = self._delete_vale(node.right, key)
+        else:
+            node.right, deleted = self._delete_value(node.right, key)
         return node, deleted
