@@ -1,3 +1,9 @@
-arr = [1, 2, 3, 4, 5]
-arr[5:5] = [6]
-print(arr)
+def hello(n):
+    if n == 1:
+        return "hi"
+    else:
+        non = hello(n - 1)
+        return non
+
+
+print(hello(10))
