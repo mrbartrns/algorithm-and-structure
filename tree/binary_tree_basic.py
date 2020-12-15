@@ -67,32 +67,45 @@ class BinaryTree:
         else:
             return self._find_value(root.right, key)
 
+    # get minimum value in the tree
+    def min_value_node(self, node):
+        current = node
+
+        while current.left is not None:
+            current = current.left
+
+        return current
+
     def delete(self, key):
-        self.root, deleted = self._delete_value(self.root, key)
-        return deleted
+        # self.root에 값을 할당
+        self.root = self._delete_node(self.root, key)
 
-    def _delete_value(self, node, key):
-        if node is None:
-            return node, False
+    def _delete_node(self, node, key):
+        if not node:
+            return None
 
-        deleted = False
-        if key == node.data:
-            deleted = True
-            if node.left and node.right:
-                parent, child = node, node.right
-                while child.left is not None:
-                    parent, child = child, child.left
-                child.left = node.left
-                if parent != node:
-                    parent.left = child.right
-                    child.right = node.right
-                node = child
-            elif node.left or node.right:
-                node = node.left or node.right
+        # key가 node의 data보다 작을 경우, 왼쪽의 값을 탐색 후 제거
+        if key < node.data:
+            node.left = self._delete_node(node.left, key)
+            return node
+
+        # key가 node의 data보다 클 경우, 오른쪽의 값을 탐색 후 제거
+        elif key > node.data:
+            node.right = self._delete_node(node.right, key)
+            return node
+
+        else:  # node.data == data
+            if not node.left and not node.right:
+                return None
+
+            elif node.left is None:
+                return node.right
+
+            elif node.right is None:
+                return node.left
+
             else:
-                node = None
-        elif key < node.data:
-            node.left, deleted = self._delete_value(node.left, key)
-        else:
-            node.right, deleted = self._delete_value(node.right, key)
-        return node, deleted
+                min_node = self.min_value_node(node.right)
+                node.data = min_node.data
+                node.right = self._delete_node(node.right, min_node.data)
+                return node
