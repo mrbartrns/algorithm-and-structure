@@ -54,7 +54,7 @@ class BinaryTree:
                 node.left = self._insert_value(node.left, data)
             else:
                 node.right = self._insert_value(node.right, data)
-        return node
+        return node  # return값은 신경 쓸 필요 없다
 
     def find(self, key):
         return self._find_value(self.root, key)
@@ -77,13 +77,14 @@ class BinaryTree:
         return current
 
     def delete(self, key):
-        # self.root에 값을 할당
+        # self.root의 값이 바뀐다면, 값을 할당한다.
         self.root = self._delete_node(self.root, key)
 
     def _delete_node(self, node, key):
         if not node:
             return None
 
+        # key가 처음에 self.root의 값과 같지 않다면, key < node.data 또는 key > node.data 중 하나일 것이다.
         # key가 node의 data보다 작을 경우, 왼쪽의 값을 탐색 후 제거
         if key < node.data:
             node.left = self._delete_node(node.left, key)
@@ -109,3 +110,27 @@ class BinaryTree:
                 node.data = min_node.data
                 node.right = self._delete_node(node.right, min_node.data)
                 return node
+
+    # tree를 출력하는 것 역시 재귀함수로 나타낸다.
+    def inorder(self, node):
+        if node is not None:
+            self.inorder(node.left)
+            print(node.data, end=" ")
+            self.inorder(node.right)
+
+
+if __name__ == "__main__":
+    boo = BinaryTree()
+
+    boo.insert(5)
+    boo.insert(1)
+    boo.insert(9)
+    boo.insert(3)
+    boo.insert(7)
+    boo.insert(2)
+    boo.insert(8)
+
+    # boo.inorder(boo.root)
+    print(boo.root)
+    print(boo.delete(1))
+    print(boo.root)
