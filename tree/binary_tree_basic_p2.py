@@ -73,7 +73,7 @@ class BST:
         elif key > node.data:
             node.right = self._delete_value(node.right, key)
         else:
-            if not node.left and node.right:
+            if not node.left and not node.right:
                 return None
             elif not node.left:
                 return node.right
@@ -146,16 +146,19 @@ class BST:
 if __name__ == "__main__":
     bst = BST()
     bst.insert(40)
-    bst.insert(4)
-    bst.insert(45)
-    bst.insert(34)
-    bst.insert(55)
-    bst.insert(14)
-    bst.insert(48)
-    bst.insert(13)
-    bst.insert(15)
-    bst.insert(47)
-    bst.insert(49)
+    # bst.insert(4)
+    # bst.insert(45)
+    # bst.insert(34)
+    # bst.insert(55)
+    # bst.insert(14)
+    # bst.insert(48)
+    # bst.insert(13)
+    # bst.insert(15)
+    # bst.insert(47)
+    # bst.insert(49)
+    # data = [11, 5, 10, 4, 9, 3, 8, 1, 2, 6, 7]
+    # for i in data:
+    #     bst.insert(i)
     bst.preorder(bst.root)
     print()
     bst.inorder(bst.root)

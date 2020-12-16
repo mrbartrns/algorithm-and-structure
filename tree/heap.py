@@ -12,10 +12,12 @@ class MaxHeap:
 
     def insert(self, item):
         self.data.append(item)
+        print("appended:", self.data)
         i = len(self.data) - 1  # 맨 앞의 원소는 None이다.
         while i > 1:
             if self.data[i] > self.data[i // 2]:
                 self.data[i], self.data[i // 2] = self.data[i // 2], self.data[i]
+                print("swaped:", self.data)
                 i //= 2
             else:
                 break
@@ -23,7 +25,8 @@ class MaxHeap:
     def remove(self):
         if len(self.data) > 1:
             self.data[1], self.data[-1] = self.data[-1], self.data[1]
-            data = self.data.pop()
+            print("removed:", self.data)
+            self.data.pop()
             self.max_heapify(1)
         else:
             data = None
@@ -32,13 +35,32 @@ class MaxHeap:
     def max_heapify(self, idx: int):
         left = 2 * idx
         right = (2 * idx) + 1
-        smallest = idx
-        if left < len(self.data) and self.data[idx] < self.data[left]:
-            smallest = left
+        largest = idx
+        print("idx:", idx, "left:", left, "right:", right)
+        if left < len(self.data) and self.data[left] > self.data[largest]:
+            print("self.data[left] > self.data[idx]")
+            largest = left
+            print("largest:", largest)
 
-        if right < len(self.data) and self.data[idx] > self.data[right]:
-            smallest = right
+        if right < len(self.data) and self.data[right] > self.data[largest]:
+            print("self.data[idx] > self.data[right]")
+            largest = right
+            print("largest:", largest)
 
-        if smallest != idx:
-            self.data[idx], self.data[smallest] = self.data[smallest], self.data[idx]
-            self.max_heapify(smallest)
+        if largest != idx:
+            print("largest != idx")
+            self.data[idx], self.data[largest] = self.data[largest], self.data[idx]
+            print(self.data)
+            self.max_heapify(largest)
+
+    def __str__(self):
+        return str(self.data[1:])
+
+
+if __name__ == "__main__":
+    heap = MaxHeap()
+    for i in range(1, 14):
+        heap.insert(i)
+        print(heap)
+    heap.remove()
+    print(heap)
