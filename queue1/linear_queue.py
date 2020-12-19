@@ -5,8 +5,11 @@ class Queue:
         self.rear = -1
 
     def enQueue(self, item):
-        self.rear += 1
-        self.queue[self.rear] = item
+        if self.isFull():
+            print("queue is full")
+        else:
+            self.rear += 1
+            self.queue[self.rear] = item
 
     def deQueue(self):
         if self.isEmpty():
