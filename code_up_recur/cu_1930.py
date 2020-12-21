@@ -15,16 +15,29 @@ def super_sum(k, n):
 
 # memoization을 활용한다면?
 
-print(super_sum(10, 10))
+
+def super_sum_memo(k, n):
+    arr = [[i for i in range(n + 1)]]
+    i = 0
+    while len(arr) - 1 < k:
+        j = 0
+        temp = []
+        sum_val = 0
+        while j < len(arr[0]):
+            sum_val += arr[i][j]
+            temp.append(sum_val)
+            j += 1
+        arr.append(temp)
+        i += 1
+    return arr[-1][-1]
 
 
-def super_sum_memo(k, i, n, arr):
-    if i == k:
-        value = 0
-        j = 1
-        while j <= n:
-            value += arr[k - 1][j]
-    else:
-        temp = [i for i in range(n + 1)]
-        for i in range(1, n + 1):
-            pass
+while True:
+    try:
+        k, n = map(int, sys.stdin.readline().split())
+        print(super_sum_memo(k, n))
+    except EOFError:
+        break
+
+k, n = map(int, sys.stdin.readline().split())
+print(super_sum_memo(k, n))
