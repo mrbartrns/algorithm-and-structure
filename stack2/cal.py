@@ -1,48 +1,39 @@
 import operator
 
-'''
+"""
     1. make ISP and ICP table
-'''
-def get_operator(op:str):
+"""
+
+
+def get_operator(op: str):
     return {
-        '+': operator.add,
-        '-': operator.sub,
-        '*': operator.mul,
-        '/': operator.truediv
+        "+": operator.add,
+        "-": operator.sub,
+        "*": operator.mul,
+        "/": operator.truediv,
     }[op]
 
-ISP = {
-    '*': 2,
-    '/': 2,
-    '+': 1,
-    '-': 1,
-    '(': 0
-}
 
-ICP = {
-    '*': 2,
-    '/': 2,
-    '+': 1,
-    '-': 1,
-    '(': 3
-}
+ISP = {"*": 2, "/": 2, "+": 1, "-": 1, "(": 0}
 
-OPERATOR = ['(', '+', '-', '*', '/', ')']
+ICP = {"*": 2, "/": 2, "+": 1, "-": 1, "(": 3}
+
+OPERATOR = ["(", "+", "-", "*", "/", ")"]
 
 
 def postfix(string: str) -> list:
     stack = []
     res = []
-    temp = ''
+    temp = ""
     for c in string:
         if c in OPERATOR:
             if temp:
                 res.append(temp)
-                temp = ''
-            if c == ')':
+                temp = ""
+            if c == ")":
                 while stack:
                     op = stack.pop()
-                    if op == '(':
+                    if op == "(":
                         break
                     else:
                         res.append(op)
@@ -58,6 +49,7 @@ def postfix(string: str) -> list:
         res.append(op)
 
     return res
+
 
 def get_eval(op, num1, num2):
     return get_operator(op)(num1, num2)
@@ -75,6 +67,7 @@ def calc(arr: list) -> int or float:
             stack.append(val)
     res = stack.pop()
     return int(res) if int(res) == float(res) else float(res)
-                
 
-print(calc(postfix('(6+5*(2-8)/2)')))
+
+# print(calc(postfix('(6+5*(2-8)/2)')))
+print(postfix("(6+5*(2-8)/2)"))
