@@ -1,31 +1,38 @@
-n, m = map(int, input().split())
-my_list = list(map(int, input().split()))
-double_check = []
-my_list.sort()
-solve = []
-visited = [0] * n
+import sys
 
 
-def Dfs(depth):
-    if depth == m:
-        print(" ".join(map(str, solve)))
-        return
-    append_count = 0
-    double_check.append(-1)
-    print(double_check)
-    for i in range(n):
-        if visited[i] == 0:
-            if double_check[len(double_check) - 1] != my_list[i]:
-                double_check.append((my_list[i]))
-                append_count += 1
-                print(double_check)
-                solve.append(my_list[i])
-                visited[i] = my_list[i]
-                Dfs(depth + 1)
-                visited[i] = 0
-                solve.pop()
-    for _ in range(append_count + 1):
-        double_check.pop()
+def solve(flags, arr):
+    string = ""
+    double = -1
+
+    if len(arr) == m:
+        for i in range(len(arr)):
+            string += str(arr[i])
+            if i < len(arr) - 1:
+                string += " "
+        string += "\n"
+        return string
+
+    # 지금 이 부분 원리 파악하고 복습하기
+    # 이해하기 쉽기 위해 스택과 상관없이 같은 수를 만났을때 어떻게 대처했는지 생각해보기
+    # 다음 스택으로 넘어갔을때 상태 변화가 어떠한지 -> flag같은경우는 이전과 이어지므로 전역변수, stack
+    for i in range(len(numbers)):
+        if not flags[i] and (double != numbers[i]):
+            flags[i] = True
+            double = numbers[i]
+            arr.append(numbers[i])
+            string += solve(flags, arr)
+            arr.pop()
+            flags[i] = False
+
+    return string
 
 
-Dfs(0)
+n, m = map(int, sys.stdin.readline().split())
+unsorted_arr = list(map(int, sys.stdin.readline().split()))
+numbers = sorted(unsorted_arr)
+arr = []
+flags = [False for _ in range(len(numbers))]
+visited = []
+answer = solve(flags, arr)
+sys.stdout.write(answer[:-1])
