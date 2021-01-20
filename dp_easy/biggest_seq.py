@@ -3,16 +3,25 @@ import sys
 
 input = sys.stdin.readline
 
-
+"""
 def solve(n):
     for i in range(1, n):
-        flag = False
         for j in range(i):
             if sequence[i] > sequence[j]:
                 flag = True
                 memo[i] = max(memo[i], sequence[i] + memo[j])
         if not flag:
             memo[i] = sequence[i]
+    return max(memo)
+"""
+
+
+def solve(n):
+    for i in range(1, n):
+        for j in range(i):
+            if sequence[i] > sequence[j]:
+                memo[i] = max(memo[i], memo[j])
+        memo[i] += sequence[i]
     return max(memo)
 
 
