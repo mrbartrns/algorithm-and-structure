@@ -20,7 +20,7 @@ def solve(n):
 
 def solve(n, m):
     for i in range(n):
-        for j in range(coins[i], n + 1):
+        for j in range(coins[i], m + 1):
             if memo[j - coins[i]] != 10001:
                 memo[j] = min(memo[j], 1 + memo[j - coins[i]])
     return memo[m] if memo[m] != 10001 else -1
