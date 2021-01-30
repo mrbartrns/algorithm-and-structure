@@ -21,7 +21,7 @@ for _ in range(n):
     v, *arr = map(int, si().split())
     for i in range(0, len(arr) - 1, 2):
         graph[v].append([arr[i], arr[i + 1]])
-
+print(graph)
 
 dfs(1)
 max_d = distance.index(max(distance))
