@@ -7,7 +7,7 @@ def bfs(que):
     cnt = 0
     while que:
         x, y = que.popleft()
-        visited[x][y] = True
+        visited[x][y] = True  # visited x, y가 없어도 가능
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
