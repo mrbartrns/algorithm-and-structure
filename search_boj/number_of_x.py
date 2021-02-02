@@ -13,9 +13,10 @@ def search_right(start, end, target):
     idx = 0
     while start <= end:
         mid = (start + end) // 2
-        if arr[mid] <= target:
-            if arr[mid] == target:
-                idx = mid
+        if (
+            arr[mid] <= target
+        ):  # 작거나 같을 때까지 mid를 증가 (즉 target보다 커지면 중단 -> 같은 요소중 가장 오른쪽에 위치하게 됨)
+            idx = mid
             start = mid + 1  # 작거나 같을 때까지 mid가 증가하기 때문에 가장 높은수를 반환하게 됨
         else:
             end = mid - 1
@@ -27,9 +28,8 @@ def search_left(start, end, target):
     idx = 0
     while start <= end:
         mid = (start + end) // 2
-        if arr[mid] >= target:
-            if arr[mid] == target:
-                idx = mid
+        if arr[mid] >= target:  # 크거나 같을 때 까지 mid를 감소
+            idx = mid
             end = mid - 1
         else:
             start = mid + 1
