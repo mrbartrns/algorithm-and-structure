@@ -23,7 +23,7 @@ for i in range(1, n + 1):
 res = 0
 
 for i in range(1, m - 1):
-    for j in range(i + 1, m):
+    for j in range(i, m):
         r1 = psum(1, 1, n, i)
         r2 = psum(1, i + 1, n, j)
         r3 = psum(1, j + 1, n, m)
@@ -31,7 +31,7 @@ for i in range(1, m - 1):
             res = r1 * r2 * r3
 
 for i in range(1, n - 1):
-    for j in range(i + 1, n):
+    for j in range(i, n):
         r1 = psum(1, 1, i, m)
         r2 = psum(i + 1, 1, j, m)
         r3 = psum(j + 1, 1, n, m)
