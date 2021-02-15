@@ -22,7 +22,7 @@ def dfs(x, y, idx):
             if board[nx][ny] != word[idx]:
                 continue
 
-            dp[x][y][idx] += dfs(x, y, idx + 1)
+            dp[x][y][idx] += dfs(nx, ny, idx + 1)
     return dp[x][y][idx]
 
 
