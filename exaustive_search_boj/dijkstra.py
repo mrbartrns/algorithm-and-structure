@@ -47,7 +47,7 @@ def dijkstra(start):
         d[j[0]] = j[1]
 
     # 시작 노드를 제외한 전체 n - 1개의 노드에 대해 반복
-    for i in range(n - 1):
+    for _ in range(n - 1):
         # 현재 최단 거리가 가장 짧은 노드를 꺼내서, 방문처리
         now = get_smallest_node()
         visited[now] = True
