@@ -1,7 +1,6 @@
 # 순위 검색
-arr = [5, 8, 15, 21, 26]
 
-"""
+
 def solution(info, query):
     answer = []
     u = [info[i].split(" ") for i in range(len(info))]
@@ -13,7 +12,7 @@ def solution(info, query):
         cnt = 0
         temp = query[i].split(" ")
         q = [temp[i] for i in range(len(temp)) if temp[i] != "and"]
-        # print(q)
+        print(int(q[4]))
         idx = search(u, int(q[4]))
         for j in range(idx, len(u)):
             q1 = u[j][0] == q[0] if q[0] != "-" else True
@@ -25,8 +24,6 @@ def solution(info, query):
         answer.append(cnt)
 
     return answer
-
-"""
 
 
 def search(arr, target):
@@ -41,64 +38,6 @@ def search(arr, target):
         else:
             start = mid + 1
     return ans
-
-
-def solution(info, query):
-    answer = []
-    ref = {}
-    for i in range(len(info)):
-        temp = info[i].split(" ")
-        dfs("", 0, len(temp) - 1, temp, ref)
-    for i in list(ref.keys()):
-        ref[i].sort()
-    for i in range(len(query)):
-        cnt = 0
-        temp = query[i].split(" ")
-        q = [temp[i] for i in range(len(temp)) if temp[i] != "and"]
-        qu = "".join(q[:-1])
-        if ref[qu]:
-            idx = len(ref[qu])
-            cnt = idx
-            score = int(q[-1])
-            idx = search(ref[qu], score)
-            answer.append(cnt - idx)
-        else:
-            answer.append(cnt)
-    return answer
-
-
-"""
-    for i in range(len(query)):
-        tot = ref
-        cnt = 0
-        temp = query[i].split(" ")
-        q = [temp[i] for i in range(len(temp)) if temp[i] != "and"]
-        q1 = q[0] if q[0] != "-" else None
-        q2 = q[1] if q[1] != "-" else None
-        q3 = q[2] if q[2] != "-" else None
-        q4 = q[3] if q[3] != "-" else None
-        score = int(q[-1])
-        if q1:
-            tot = tot & languages[q1]
-        if q2:
-            tot = tot & positions[q2]
-        if q3:
-            tot = tot & careers[q3]
-        if q4:
-            tot = tot & foods[q4]
-        for people in tot:
-            if scores[people] >= score:
-                cnt += 1
-        answer.append(cnt)
-"""
-
-
-def dfs(s, idx, length, arr, dic):
-    if idx == length:
-        dic[s] = dic.get(s, []) + [int(arr[4])]
-        return
-    dfs(s + "-", idx + 1, length, arr, dic)
-    dfs(s + arr[idx], idx + 1, length, arr, dic)
 
 
 info = [
