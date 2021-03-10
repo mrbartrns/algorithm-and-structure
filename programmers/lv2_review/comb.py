@@ -35,6 +35,6 @@ def permutation(prefix, k):
             arr[i], arr[k] = arr[k], arr[i]
 
 
-arr = [1, 2, 3, 4]
+arr = [0] * 500000
 r = 2
 print(list(combination(arr, r)))
