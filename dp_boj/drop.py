@@ -5,34 +5,39 @@ si = sys.stdin.readline
 
 
 def solve(n):
-    dp = [0] * n
+    ans = 0
 
-    for i in range(0, n):
-        if t[i] <= n:
-            dp[i] = arr[i]
-
-        for j in range(i):
-            if t[j] <= i:
-                dp[i] = max(dp[i], dp[j] + arr[i])
-            else:
-                dp[i] = max(dp[i], dp[j])
-
-    return dp
+    for i in range(n, 0, -1):
+        if i + t[i] > n + 1:
+            arr[i] = arr[i + 1]
+        else:
+            arr[i] = max(arr[i + 1], arr[i] + arr[i + t[i]])
+            ans = max(ans, arr[i])
+    return ans
 
 
-"""
 n = int(si())
-t = [i for i in range(n)]
-arr = [0] * n
+t = [0] * 17
+arr = [0] * 17
 
-for i in range(n):
+for i in range(1, n + 1):
     u, v = map(int, si().split())
-    t[i] += u
+    t[i] = u
     arr[i] = v
+
+print(solve(n))
 """
 
 n = 7
-t = [3, 6, 3, 4, 6, 9, 8]
-arr = [10, 20, 10, 20, 15, 40, 200]
-
-print(solve(n))
+t = [0, 3, 5, 1, 1, 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+arr = [0, 10, 20, 10, 20, 15, 40, 200, 0, 0, 0, 0, 0, 0, 0, 0]
+ans = 0
+for i in range(n, 0, -1):
+    if i + t[i] > n + 1:
+        arr[i] = arr[i + 1]
+    else:
+        arr[i] = max(arr[i + 1], arr[i] + arr[i + t[i]])
+        ans = max(ans, arr[i])
+print(ans)
+# print(solve(n))
+"""
