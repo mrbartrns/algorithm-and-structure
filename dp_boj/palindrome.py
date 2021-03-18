@@ -3,7 +3,7 @@ import sys
 
 si = sys.stdin.readline
 
-n = int(si())
+n = int(si())  # 원래 배열의 길이를 넣어야 인덱스 에러 안남
 arr = [-1] + list(map(int, si().split()))
 dp = [[1 for _ in range(n + 1)] for _ in range(n + 1)]
 for i in range(n - 1, 0, -1):
