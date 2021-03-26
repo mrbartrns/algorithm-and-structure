@@ -1,8 +1,14 @@
 # BOJ 2447
 n = 27
 
+
 # 첫번째 방법
 def solve(x, y, n):
+    """
+    @type x: row
+    @type y: col
+    @type n: scale
+    """
     if (x // n) % 3 == 1 and (y // n) % 3 == 1:
         print(" ", end="")
         return
