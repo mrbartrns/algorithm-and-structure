@@ -5,16 +5,17 @@ si = sys.stdin.readline
 
 
 # 방법 1. 최소공배수를 이용하기
-def gcd(a, b):
-    if a < b:
+def gcd(a: int, b: int) -> int:
+    if b > a:
         a, b = b, a
     if b == 0:
         return a
     return gcd(b, a % b)
 
 
+# nice
 # 최소공배수 구하기
-def lcm(a, b):
+def lcm(a: int, b: int):
     return a * b // gcd(a, b)
 
 
