@@ -13,3 +13,5 @@ for _ in range(m):
 
 for i in range(1, n + 1):
     print(balls[i], end=" ")
+
+# test
