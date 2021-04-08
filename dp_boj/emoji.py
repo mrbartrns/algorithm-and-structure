@@ -8,17 +8,25 @@ si = sys.stdin.readline
 def bfs(target):
     que = deque()
     que.append((1, 0, 0))
+    visited[1][0] = True
     while que:
-        s, cnt, idx = que.popleft()
-        if s == target:
+        display, clip, cnt = que.popleft()
+        if display == target:
             return cnt
-        if dp[cnt][idx] > 0:
-            que.append((dp[cnt][idx] + s, cnt + 1, 0))
-            dp[cnt + 1][0] = dp[cnt][idx]
-        que.append((s, cnt + 1, 1))
-        dp[cnt + 1][1] = s
-        que.append((s - 1, cnt + 1, 0))
+        if 0 < display < MAX:
+            if not visited[display][display]:
+                visited[display][display] = True
+                que.append((display, display, cnt + 1))
+            if not visited[display - 1][clip]:
+                visited[display - 1][clip] = True
+                que.append((display - 1, clip, cnt + 1))
+        if clip > 0 and display + clip < MAX:
+            if not visited[display + clip][clip]:
+                visited[display + clip][clip] = True
+                que.append((display + clip, clip, cnt + 1))
 
 
-dp = [[0 for _ in range(2)]] * 15
-print(bfs(18))
+MAX = 2000
+visited = [[False for _ in range(MAX)] for _ in range(MAX)]
+n = int(si())
+print(bfs(n))
