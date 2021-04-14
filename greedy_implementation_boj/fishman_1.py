@@ -1,36 +1,41 @@
 # BOJ 17143
 import sys
+from collections import deque
 
 si = sys.stdin.readline
 
 dy = [-1, 1, 0, 0]
 dx = [0, 0, 1, -1]
 
+R, C, M = map(int, si().split())
+graph = [[[] for _ in range(101)] for _ in range(101)]
+for _ in range(M):
+    r, c, s, d, z = map(int, si().split())
+    graph[r][c].append([z, s, d - 1])
 
-def fish(idx):
-    s = 0
-    for i in range(R):
-        if graph[i][idx] > -1:
-            shark_idx = graph[i][idx]
-            sharks[shark_idx][5] = False
-            s += sharks[shark_idx][4]
-            graph[i][idx] = -1
+cur = 0  # 현재 낙시왕의 위치
+res = 0
+for c in range(C):
+    cur += 1
+    for i in range(1, R + 1):
+        if len(graph[i][cur]) > 0:
+            res += graph[i][cur][0][0]
+            graph[i][cur].clear()
             break
-    return s
+    que = deque()
+    for i in range(1, R + 1):
+        for j in range(1, C + 1):
+            if len(graph[i][j]):
+                que.append([i, j, graph[i][j][0][0], graph[i][j][0][1], graph[i][j][0][2]])  # [i, j, s, d - 1, z]
+                graph[i][j].clear()
 
+    while que:
+        y, x, size, speed, direction = que.popleft()
 
-def shark_move():
-    size = len(sharks)
-    for i in range(size):
-        if not sharks[i][5]:
-            continue
-        y, x = sharks[i][0], sharks[i][1]
-        speed = sharks[i][2]
-        direction = sharks[i][3]
         for _ in range(speed):
             ny = y + dy[direction]
             nx = x + dx[direction]
-            if nx < 0 or nx >= C or ny < 0 or ny >= R:
+            if ny <= 0 or ny > R or nx <= 0 or nx > C:
                 if direction == 0:
                     direction = 1
                 elif direction == 1:
@@ -39,44 +44,15 @@ def shark_move():
                     direction = 3
                 elif direction == 3:
                     direction = 2
-                sharks[i][3] = direction
                 ny = y + dy[direction]
                 nx = x + dx[direction]
-            sharks[i][0] = ny
-            sharks[i][1] = nx
             y, x = ny, nx
-        check(y, x, i)
 
-
-def check(y, x, n_idx):
-    if graph[y][x] == -1:
-        graph[y][x] = n_idx
-    else:
-        idx = graph[y][x]
-        if sharks[idx][4] > sharks[n_idx][4]:
-            sharks[n_idx][5] = False
+        if len(graph[y][x]):
+            if graph[y][x][0][0] < size:
+                graph[y][x].clear()
+                graph[y][x].append([size, speed, direction])
         else:
-            sharks[idx][5] = False
-            graph[y][x] = n_idx
+            graph[y][x].append([size, speed, direction])
 
-
-R, C, m = map(int, si().split())
-sharks = []
-for _ in range(m):
-    r, c, s, d, z = map(int, si().split())  # 행, 렬, 속력, 이동방향, 크기
-    sharks.append([r - 1, c - 1, s, d - 1, z, True])
-tot = 0
-fish_man_idx = 0
-graph = [[-1 for _ in range(C)] for _ in range(R)]
-for i in range(len(sharks)):
-    nr = sharks[i][0]
-    nc = sharks[i][1]
-    graph[nr][nc] = i
-
-while fish_man_idx < C:
-    tot += fish(fish_man_idx)
-    graph = [[-1 for _ in range(C)] for _ in range(R)]
-    shark_move()
-    fish_man_idx += 1
-
-print(tot)
+print(res)
