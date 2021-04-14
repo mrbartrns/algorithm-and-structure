@@ -42,13 +42,14 @@ for c in range(len(arch)):
                     cur_y = y2
                     cur_x = x2
             # check.append((cur_y, cur_x))
-            if cur_y > -1 and cur_x > -1:
+            if cur_y > -1 and cur_x > -1 and graph[cur_y][cur_x] == 1:
                 graph[cur_y][cur_x] = 0
                 cnt += 1
 
         # 3. 적의 이동
-        for j in range(m - 1, -1, -1):
-            for i in range(1, n):
+        for j in range(m):
+            for i in range(n - 1, 0, -1):
                 graph[i][j] = graph[i - 1][j]
+            graph[0][j] = 0
 
 print(killed)
