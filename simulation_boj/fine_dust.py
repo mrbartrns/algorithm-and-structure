@@ -121,8 +121,8 @@ for _ in range(t):
             if graph[i][j] == -1:
                 rotate(direction, i)
                 direction += 1
-# for i in range(r):
-#     print(" ".join(list(map(str, graph[i]))))
+# for y in range(r):
+#     print(" ".join(list(map(str, graph[y]))))
 for i in range(r):
     s += reduce(lambda acc, cur: acc + cur, graph[i], 0)
 s += 2

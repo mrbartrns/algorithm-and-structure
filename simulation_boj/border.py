@@ -73,8 +73,8 @@ for i in range(0, size, 2):
         graph[i][j] = temp[i // 2][j // 2]
 
 # 그래프 출력
-# for i in range(size):
-#     print(" ".join(list(map(str, graph[i]))))
+# for y in range(size):
+#     print(" ".join(list(map(str, graph[y]))))
 
 while open_border():
     # 국경선을 열었으면, 인접한 국가끼리 bfs 실행하기
@@ -95,8 +95,8 @@ while open_border():
             graph[i][j] = values[label_value]
 
     # 그래프 출력
-    # for i in range(2 * n):
-    #     print(" ".join(list(map(str, graph[i]))))
+    # for y in range(2 * n):
+    #     print(" ".join(list(map(str, graph[y]))))
 
     # 국경 닫기
     close_border()

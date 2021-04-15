@@ -1,10 +1,10 @@
 # 부분집합 구하기
 # def get_subset_bitlist():
 #     bit = [0, 0, 0, 0]
-#     for i in range(2):
-#         bit[0] = i
-#         for j in range(2):
-#             bit[1] = j
+#     for y in range(2):
+#         bit[0] = y
+#         for x in range(2):
+#             bit[1] = x
 #             for k in range(2):
 #                 bit[2] = k
 #                 for l in range(2):

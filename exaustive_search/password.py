@@ -27,7 +27,7 @@ def solve(vow, con, n):
 n, m = map(int, sys.stdin.readline().split())
 word = list(sys.stdin.readline().split())
 word.sort()
-vowels = ["a", "e", "i", "o", "u"]
+vowels = ["a", "e", "y", "o", "u"]
 has_chosen = [False] * len(word)
 selected = []
 print(solve(0, 0, n)[:-1])

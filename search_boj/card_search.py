@@ -44,9 +44,9 @@ def search(arr, start, end, target):
     return False
 
 
-# for i in range(m):
-#     if search(n_arr, m_arr[i]):
-#         res[i] = 1
+# for y in range(m):
+#     if search(n_arr, m_arr[y]):
+#         res[y] = 1
 for i in range(m):
     if search(n_arr, 0, n - 1, m_arr[i]):
         res[i] = 1

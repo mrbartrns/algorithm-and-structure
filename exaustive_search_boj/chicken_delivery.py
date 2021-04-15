@@ -39,16 +39,16 @@ print(MIN)
 
 # bfs 사용시 시간 초과
 """
-def bfs(i, j):
-    que = deque([(i, j, 0)])
-    visited[i][j] = True
+def bfs(y, x):
+    que = deque([(y, x, 0)])
+    visited[y][x] = True
     while que:
         x, y, cnt = que.popleft()
         if graph[x][y] == 2 and (x, y) in preset:
             return cnt
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
+        for y in range(4):
+            nx = x + dx[y]
+            ny = y + dy[y]
             if nx < 0 or nx >= n or ny < 0 or ny >= n:
                 continue
             if not visited[nx][ny]:

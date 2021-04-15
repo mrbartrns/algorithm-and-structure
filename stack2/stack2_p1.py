@@ -51,6 +51,6 @@ def forth(string: list) -> int:
 # print(forth(['1', '5', '8', '10', '3', '4', '+', '+', '3', '+', '*', '2', '+', '+', '+', '.']))
 print(forth(['5', '3', '*', '+', '.']))
 # t = int(input())
-# for i in range(t):
+# for y in range(t):
 #     case = [x for x in input().split()]
-#     print(f'#{i + 1} {forth(case)}')
+#     print(f'#{y + 1} {forth(case)}')

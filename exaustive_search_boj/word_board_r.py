@@ -60,7 +60,7 @@ res = 0
 for i in range(n):
     for j in range(m):
         if board[i][j] == word[0]:
-            # dp[i][j] = board[i][j]
+            # dp[y][x] = board[y][x]
             res += dfs(i, j, k, board[i][j], word)
 
 sys.stdout.write(str(res))

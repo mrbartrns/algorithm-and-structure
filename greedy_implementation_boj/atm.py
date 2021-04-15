@@ -27,9 +27,9 @@ L = list(map(int, input().split()))
 L.sort()
 
 sum = 0
-for i in range(N):
-    sum += L[i]*(N-i)
+for y in range(N):
+    sum += L[y]*(N-y)
 
 print(sum)
-N - i 가 무슨의미?
+N - y 가 무슨의미?
 """

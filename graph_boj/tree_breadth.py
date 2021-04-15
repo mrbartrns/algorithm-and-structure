@@ -11,11 +11,11 @@ visited = [False] * (n + 1)
 distance = [0] * (n + 1)
 for _ in range(n):
     a, *arr = map(int, si().split())
-    for i in range(len(arr) - 1):
-        if i % 2 == 0:
-            graph[a].append(arr[i])
+    for y in range(len(arr) - 1):
+        if y % 2 == 0:
+            graph[a].append(arr[y])
         else:
-            length[a].append(arr[i])
+            length[a].append(arr[y])
 
 """
 graph = [[], [3], [4], [1, 4], [2, 3, 5], [4]]

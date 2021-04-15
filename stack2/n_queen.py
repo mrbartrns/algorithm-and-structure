@@ -18,7 +18,7 @@ def solve_n_queen(k, n):
 
     else:
         for j in range(n):
-            # if (not iss1[j]) and (not iss2[k + j]) and (not iss3[k - j + n - 1]):
+            # if (not iss1[x]) and (not iss2[k + x]) and (not iss3[k - x + n - 1]):
             if iss1[j] or iss2[k + j] or iss3[k - j + n - 1]:
                 continue
             iss1[j], iss2[k + j], iss3[k - j + n - 1] = True, True, True

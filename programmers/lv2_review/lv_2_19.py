@@ -26,10 +26,10 @@ def solution(clothes):
     dfs_left(1, 0)
     dfs_right(1, half)
     answer = sum(left) + sum(right) - 2
-    for i in range(1, len(left)):
+    for y in range(1, len(left)):
         s = 0
-        for j in range(1, len(right)):
-            s += left[i] * right[j]
+        for x in range(1, len(right)):
+            s += left[y] * right[x]
         answer += s
     return answer
 

@@ -25,7 +25,7 @@ def backtrack(word, con, vow):
 l, c = map(int, si().split())
 alphabets = si().split()
 alphabets.sort()
-vowels = set(["a", "e", "i", "o", "u"])
+vowels = set(["a", "e", "y", "o", "u"])
 visited = [False] * c
 word = []
 backtrack(word, 0, 0)

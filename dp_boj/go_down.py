@@ -36,20 +36,20 @@ print(min(min_dp))
 """
 dp = [graph[0][0], graph[0][1], graph[0][2]]
 # MAX
-for i in range(1, n):
-    dp[0] += max(graph[i][0], graph[i][1])
-    dp[1] += max(graph[i][0], graph[i][1], graph[i][2])
-    dp[2] += max(graph[i][1], graph[i][2])
+for y in range(1, n):
+    dp[0] += max(graph[y][0], graph[y][1])
+    dp[1] += max(graph[y][0], graph[y][1], graph[y][2])
+    dp[2] += max(graph[y][1], graph[y][2])
 
 print(max(dp))
 
 dp = [graph[0][0], graph[0][1], graph[0][2]]
 
 # MIN
-for i in range(1, n):
-    dp[0] += min(graph[i][0], graph[i][1])
-    dp[1] += min(graph[i][0], graph[i][1], graph[i][2])
-    dp[2] += min(graph[i][1], graph[i][2])
+for y in range(1, n):
+    dp[0] += min(graph[y][0], graph[y][1])
+    dp[1] += min(graph[y][0], graph[y][1], graph[y][2])
+    dp[2] += min(graph[y][1], graph[y][2])
 
 print(min(dp))
 """
@@ -57,12 +57,12 @@ print(min(dp))
 def solve(n):
     max_dp = [graph[0][0], graph[0][1], graph[0][2]]
     min_dp = max_dp[:]
-    for i in range(1, n):
-        max_dp[0] += max(graph[i][0], graph[i][1])
-        min_dp[0] += min(graph[i][0], graph[i][1])
-        max_dp[1] += max(graph[i][0], graph[i][1], graph[i][2])
-        min_dp[1] += min(graph[i][0], graph[i][1], graph[i][2])
-        max_dp[2] += max(graph[i][1], graph[i][2])
-        min_dp[2] += min(graph[i][1], graph[i][2])
+    for y in range(1, n):
+        max_dp[0] += max(graph[y][0], graph[y][1])
+        min_dp[0] += min(graph[y][0], graph[y][1])
+        max_dp[1] += max(graph[y][0], graph[y][1], graph[y][2])
+        min_dp[1] += min(graph[y][0], graph[y][1], graph[y][2])
+        max_dp[2] += max(graph[y][1], graph[y][2])
+        min_dp[2] += min(graph[y][1], graph[y][2])
     return max_dp, min_dp
 """

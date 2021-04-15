@@ -9,11 +9,11 @@ def solve(n):
         memo[2] = 3
 
     if n % 2 == 0:
-        for i in range(4, n + 1, 2):
-            memo[i] = memo[i - 2] * memo[2]
-            for j in range(4, i, 2):
-                memo[i] += memo[i - j] * 2
-            memo[i] += 2
+        for y in range(4, n + 1, 2):
+            memo[y] = memo[y - 2] * memo[2]
+            for x in range(4, y, 2):
+                memo[y] += memo[y - x] * 2
+            memo[y] += 2
     return memo[n]
 """
 

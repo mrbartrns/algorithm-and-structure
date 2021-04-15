@@ -39,8 +39,8 @@ def get_score(k, arr, location, result, counts):
 n = int(sys.stdin.readline())
 arr = [0]
 for _ in range(n):
-    i = int(sys.stdin.readline())
-    arr.append(i)
+    y = int(sys.stdin.readline())
+    arr.append(y)
 # n = 7
 # arr = [0, 13, 1, 15, 27, 29, 21, 20]
 

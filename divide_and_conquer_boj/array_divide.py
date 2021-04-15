@@ -62,9 +62,9 @@ def divide(x, y, n):
 
     start = arr[0][0]
     same = True
-    for i in range(len(arr)):
-        for j in range(len(arr[0])):
-            if start != arr[i][j]:
+    for y in range(len(arr)):
+        for x in range(len(arr[0])):
+            if start != arr[y][x]:
                 same = False
                 break
 
@@ -72,11 +72,11 @@ def divide(x, y, n):
         return arr
     else:
         new = []
-        for i in range(3):
-            for j in range(3):
+        for y in range(3):
+            for x in range(3):
                 new_arr = [
-                    row[j * (n // 3) : (j + 1) * (n // 3)]
-                    for row in arr[i * (n // 3) : (i + 1) * (n // 3)]
+                    row[x * (n // 3) : (x + 1) * (n // 3)]
+                    for row in arr[y * (n // 3) : (y + 1) * (n // 3)]
                 ]
                 print(new_arr)
                 new += divide(new_arr, n // 3)

@@ -33,9 +33,9 @@ n, m, k = 5, 3, 5
 linked_list = [958, 386, 329, 169, 778]
 # n, m, k = 6, 3, 3
 # linked_list = [6, 2, 4, 9, 1, 5]
-i = 0
+y = 0
 idx = 0
-while i < k:
+while y < k:
     idx = (idx + m) % (len(linked_list))
     if idx % len(linked_list) == 0:
         length = len(linked_list)
@@ -43,6 +43,6 @@ while i < k:
         idx = len(linked_list) - 1
     else:
         linked_list[idx:idx] = [linked_list[idx] + linked_list[idx - 1]]
-    i += 1
+    y += 1
 print(print_reverse(linked_list, 10))
 """

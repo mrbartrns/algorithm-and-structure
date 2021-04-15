@@ -24,15 +24,15 @@ print(res)
 def solve(string):
     if len(string) == size:
         s = 0
-        for i in range(size):
-            if string[i] != b[i]:
+        for y in range(size):
+            if string[y] != b[y]:
                 s += 1
         cnt[0] = min(cnt[0], s)
         return
-    for i in range(26):
-        if alphabets[i]:
-            solve(chr(ord("a") + i) + string)
-            solve(string + chr(ord("a") + i))
+    for y in range(26):
+        if alphabets[y]:
+            solve(chr(ord("a") + y) + string)
+            solve(string + chr(ord("a") + y))
 """
 """
 def bfs(string):
@@ -43,14 +43,14 @@ def bfs(string):
         s = que.popleft()
         if len(s) == size:
             cnt = 0
-            for i in range(size):
-                if b[i] != s[i]:
+            for y in range(size):
+                if b[y] != s[y]:
                     cnt += 1
             res = min(res, cnt)
         elif len(s) < size:
-            for i in range(26):
-                alpha = chr(ord("a") + i)
-                if alphabets[i]:
+            for y in range(26):
+                alpha = chr(ord("a") + y)
+                if alphabets[y]:
                     que.append(s + alpha)
                     que.append(alpha + s)
     return res

@@ -11,7 +11,7 @@ def cook_pizza(arr: list, n: int) -> int:
     queue: list(queue), oven
     pizzas: queue를 그대로 복사한 리스트
     in_oven: queue 안에 들어있는 피자의 갯수
-    i: arr를 순환하기위한 iterator
+    y: arr를 순환하기위한 iterator
     idx: queue의 idx
     counts: 다 구워진 피자의 갯수
     """

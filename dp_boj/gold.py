@@ -19,8 +19,8 @@ def solve(n):  # n은 열의 크기 -1
 # golds = [[1, 3, 3, 2], [2, 1, 4, 1], [0, 6, 4, 7]]
 # memo = [[0 for _ in range(len(golds[0]))] for _ in range(len(golds))]
 # # memo 초기화
-# for i in range(len(golds)):
-#     memo[i][0] = golds[i][0]
+# for y in range(len(golds)):
+#     memo[y][0] = golds[y][0]
 # print(solve(3))
 t = int(sys.stdin.readline())
 for _ in range(t):

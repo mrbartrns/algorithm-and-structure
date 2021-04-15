@@ -2,9 +2,9 @@
 def dfs(graph, v, visited):
     visited[v] = True
     print(v, end=" ")
-    for i in range(graph[v]):
-        if not visited[i]:
-            dfs(graph, i, visited)
+    for y in range(graph[v]):
+        if not visited[y]:
+            dfs(graph, y, visited)
 """
 
 """

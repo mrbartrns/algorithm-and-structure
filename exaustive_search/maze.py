@@ -22,11 +22,11 @@ def count_route(x, y):
 
     # 나머지 반복해야 할 부분. 부분해를 받아 전체해를 구성하는 역할을 하고, 조건을 통해 규칙적으로 작업을 분할한다.
     val = 0
-    for i in range(4):  # len(dx), len(dy)
+    for y in range(4):  # len(dx), len(dy)
         if not has_passed[x][y]:
             has_passed[x][y] = True
-            next_x = x + dx[i]
-            next_y = y + dy[i]
+            next_x = x + dx[y]
+            next_y = y + dy[y]
             temp = count_route(next_x, next_y)
             if val == 0 or (temp > 0 and val > temp):
                 val = temp

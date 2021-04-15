@@ -35,13 +35,13 @@ def search(arr, m):
             return text[flag[1]: flag[1] + m]
 
 # t = int(input())
-# for i in range(t):
+# for y in range(t):
 #     arr = []
 #     n, m = map(int, input().split())
-#     for j in range(n):
+#     for x in range(n):
 #         text = input()
 #         arr.append(text)
-#     print(f'#{i + 1} {search(arr, m)}')
+#     print(f'#{y + 1} {search(arr, m)}')
 
 # print(check_palindrome('JAEZNNZEAJ', 10))
 # print(search(['ECFQBKSYBBOSZQSFBXKI', 'VBOAIDLYEXYMNGLLIOPP', 'AIZMTVJBZAWSJEIGAKWB', 'CABLQKMRFNBINNZSOGNT', 'NQLMHYUMBOCSZWIOBINM', 'QJZQPSOMNQELBPLVXNRN', 'RHMDWPBHDAMWROUFTPYH',

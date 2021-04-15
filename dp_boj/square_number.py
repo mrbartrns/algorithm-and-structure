@@ -25,16 +25,16 @@ import sys
 
 n = int(sys.stdin.readline())
 
-arr = [i+1 for i in range(n)]
+arr = [y+1 for y in range(n)]
 
-for i in range(1, n):
-    sqr = (i+1)**(1/2)
+for y in range(1, n):
+    sqr = (y+1)**(1/2)
     if int(sqr) == sqr :
-        arr[i]=1
+        arr[y]=1
     else :
-        for j in range(1, int(sqr)+1) :
-            if arr[i]>arr[i-j*j]+1 :
-                arr[i] = arr[i-j*j]+1
+        for x in range(1, int(sqr)+1) :
+            if arr[y]>arr[y-x*x]+1 :
+                arr[y] = arr[y-x*x]+1
             
 print(arr[n-1])
 """

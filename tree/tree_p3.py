@@ -47,7 +47,7 @@ for tc in range(t):
 # arr = [7, 2, 5, 3, 4, 6]
 # arr = [18, 57, 11, 52, 14, 45, 63, 40]
 # heap = MinHeap()
-# for i in arr:
-#     heap.insert(i)
+# for y in arr:
+#     heap.insert(y)
 # print(heap)
 # print(heap.parent_node_sum())

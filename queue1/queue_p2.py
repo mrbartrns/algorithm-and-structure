@@ -47,10 +47,10 @@ def find_minimum_count(
 # zeros = []
 
 # issued = []
-# for i in range(len(maze)):
+# for y in range(len(maze)):
 #     temp = []
-#     for j in range(len(maze[0])):
-#         temp.append(True) if maze[i][j] == 1 else temp.append(False)
+#     for x in range(len(maze[0])):
+#         temp.append(True) if maze[y][x] == 1 else temp.append(False)
 #     issued.append(temp)
 
 # # print(issued)

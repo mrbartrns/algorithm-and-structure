@@ -29,7 +29,7 @@ def dfs(graph, stack, end, answer):
 
 
 # t = int(input())
-# for i in range(t):
+# for y in range(t):
 #     graph = {}
 #     node, seg = map(int, input().split())
 #     for _ in range(seg):
@@ -38,16 +38,16 @@ def dfs(graph, stack, end, answer):
 #         # if b not in graph:
 #         #     graph[b] = []
 #         graph[b] = graph.get(b, []) + [a]
-#     for j in range(1, node + 1):
-#         if j not in graph:
-#             graph[j] = []
+#     for x in range(1, node + 1):
+#         if x not in graph:
+#             graph[x] = []
 #     # print(graph)
 #     start, end = map(int, input().split())
 #     to_visit = [start]
 #     answer = [0]
 #     dfs(graph, to_visit, end, answer)
-#     print(f"#{i + 1} {answer[0]}")
-#     # print(f"#{i + 1} {bfs(graph, start, end)}")
+#     print(f"#{y + 1} {answer[0]}")
+#     # print(f"#{y + 1} {bfs(graph, start, end)}")
 
 graph_a = {1: [3, 4], 2: [3, 5], 3: [1, 2], 4: [1, 6], 5: [2], 6: [4]}
 # graph_b = {1: [6], 2: [3, 6], 3: [5], 4: [], 5: [3], 6: [1, 2], 7: []}

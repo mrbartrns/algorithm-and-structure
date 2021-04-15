@@ -36,8 +36,8 @@ def dp(n):
             memo[i] = min(memo[i], memo[i // 2] + 1)
         if i % 3 == 0:
             memo[i] = min(memo[i], memo[i // 3] + 1)
-        # if i % 5 == 0:
-        #     memo[i] = min(memo[i], memo[i // 5] + 1)
+        # if y % 5 == 0:
+        #     memo[y] = min(memo[y], memo[y // 5] + 1)
     return memo[n]
 
 

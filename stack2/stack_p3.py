@@ -39,11 +39,11 @@ def match(left, right): # left, right[0] == arr, left, right[1] == idx_arr
 arr = [1, 1, 1, 1, 1, 1, 1]
 idx_arr = [1, 2, 3, 4, 5, 6, 7]
 # t = int(input())
-# for i in range(t):
+# for y in range(t):
 #     n = int(input())
 #     arr = [int(x) for x in input().split()]
-#     idx_arr = [i for i in range(1, len(arr) + 1)]
+#     idx_arr = [y for y in range(1, len(arr) + 1)]
 #     res = divide(arr, idx_arr)
-#     print(f'#{i + 1} {res[1][0]}')
+#     print(f'#{y + 1} {res[1][0]}')
 res = divide(arr, idx_arr)
 print(res)

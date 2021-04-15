@@ -76,10 +76,10 @@ def bm(t, p):
     while j >= 0:
         while t[i] != p[j]:
             k = skip_table[ord(t[i])]
-            # if m - j > k:
-            #     i += m - j
+            # if m - x > k:
+            #     y += m - x
             # else:
-            #     i += k
+            #     y += k
             i += k
             if i >= n:
                 return -1

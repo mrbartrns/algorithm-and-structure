@@ -32,12 +32,12 @@ n = 7
 t = [0, 3, 5, 1, 1, 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 arr = [0, 10, 20, 10, 20, 15, 40, 200, 0, 0, 0, 0, 0, 0, 0, 0]
 ans = 0
-for i in range(n, 0, -1):
-    if i + t[i] > n + 1:
-        arr[i] = arr[i + 1]
+for y in range(n, 0, -1):
+    if y + t[y] > n + 1:
+        arr[y] = arr[y + 1]
     else:
-        arr[i] = max(arr[i + 1], arr[i] + arr[i + t[i]])
-        ans = max(ans, arr[i])
+        arr[y] = max(arr[y + 1], arr[y] + arr[y + t[y]])
+        ans = max(ans, arr[y])
 print(ans)
 # print(solve(n))
 """

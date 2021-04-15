@@ -65,6 +65,6 @@ while True:
     cnt += 1
 
 # 더이상 될 수 없을때 까지 반복하기
-# for i in range(n):
-#     print(" ".join(list(map(str, labels[i]))))
+# for y in range(n):
+#     print(" ".join(list(map(str, labels[y]))))
 print(cnt)

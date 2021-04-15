@@ -12,13 +12,13 @@ def bfs_matching(p, t): # p: pattern, t: target
     while i < len(t) and j < len(p):
         if t[i] != p[j]:
             i -= j
-            print('i:', i)
+            print('y:', i)
             j = -1
-            print('j:', j)
+            print('x:', j)
         i += 1
         j += 1
-        print('i:', i)
-        print('j:', j)
+        print('y:', i)
+        print('x:', j)
     if j == len(p):
         return i - len(p)
     else:

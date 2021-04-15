@@ -35,19 +35,19 @@ issue = []
 flag = 0
 x = 0
 y = 0
-for i in range(len(arr)):
-    if 2 in arr[i]:
-        x = i
-for j in range(len(arr[x])):
-    if arr[x][j] == 2:
-        y = j
+for y in range(len(arr)):
+    if 2 in arr[y]:
+        x = y
+for x in range(len(arr[x])):
+    if arr[x][x] == 2:
+        y = x
 # print(x, y)
 '''
 '''
-for i in range(len(arr)):
+for y in range(len(arr)):
     temp = []
-    for j in range(len(arr[0])):
-        temp.append(True) if arr[i][j] == 1 else temp.append(False)
+    for x in range(len(arr[0])):
+        temp.append(True) if arr[y][x] == 1 else temp.append(False)
     issue.append(temp)
 
 

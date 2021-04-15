@@ -15,13 +15,13 @@ def solve(idx, tot):
         values.append(tot)
         return
 
-    for i in range(len(store)):
-        if not has_visited[i] and i >= idx:
-            if i == 0 or not has_visited[i - 1]:
-                has_visited[i] = True
-                idx = i
-                solve(idx, tot + store[i])
-                has_visited[i] = False
+    for y in range(len(store)):
+        if not has_visited[y] and y >= idx:
+            if y == 0 or not has_visited[y - 1]:
+                has_visited[y] = True
+                idx = y
+                solve(idx, tot + store[y])
+                has_visited[y] = False
 
 
 """

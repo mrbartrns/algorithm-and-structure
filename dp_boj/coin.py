@@ -2,17 +2,17 @@ import sys
 
 """
 def solve(n):
-    for i in range(coins[-1]):
-        for j in coins:
-            if i < len(memo) and i - j >= 0 and i - j not in coins:
-                memo[i] = -1
+    for y in range(coins[-1]):
+        for x in coins:
+            if y < len(memo) and y - x >= 0 and y - x not in coins:
+                memo[y] = -1
 
-    for i in range(coins[0], n + 1):
+    for y in range(coins[0], n + 1):
         val = -1
-        for j in coins:
-            if i - j >= 0 and (val == -1 or val > memo[i - j]):
-                val = memo[i - j]
-        memo[i] = val + 1
+        for x in coins:
+            if y - x >= 0 and (val == -1 or val > memo[y - x]):
+                val = memo[y - x]
+        memo[y] = val + 1
         print(memo)
     return memo[n]
 """

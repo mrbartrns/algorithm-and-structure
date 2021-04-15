@@ -34,10 +34,10 @@ def bus(k, arr, last):
             return 0
 
 # t = int(input())
-# for i in range(t):
+# for y in range(t):
 #     k, last, n = map(int, input().split())
 #     arr = list(map(int, input().split()))
-#     print(f'#{i + 1} {bus(k, arr, last)}')
+#     print(f'#{y + 1} {bus(k, arr, last)}')
 
 # print(bus(5, [4, 7, 9, 14, 17], 20))
 # print(bus(3, [1, 3, 5, 7, 9], 10))

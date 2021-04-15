@@ -24,7 +24,7 @@ def dfs(cnt):
         copy_room = copy.deepcopy(graph)
         for i in range(len(camera)):
             x, y = camera[i]
-            # j 는 활성화된 move에 대해서만 실행한다는 뜻
+            # x 는 활성화된 move에 대해서만 실행한다는 뜻
             for j in range(4):
                 if visited[x][y][j]:
                     nx = x + move[(angle[i] + j) % 4][0]

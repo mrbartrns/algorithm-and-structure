@@ -40,6 +40,6 @@ def check_bracket(string):
 print(check_bracket("({(})})"))
 print(check_bracket("{((((()))))}"))
 # t = int(input())
-# for i in range(t):
+# for y in range(t):
 #     string = input()
-#     print(f'#{i + 1} {check_bracket(string)}')
+#     print(f'#{y + 1} {check_bracket(string)}')

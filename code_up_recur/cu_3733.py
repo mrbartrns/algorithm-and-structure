@@ -16,14 +16,14 @@ def collatz(n, arr):
 a, b = map(int, sys.stdin.readline().split())
 current = 0
 cur_len = 0
-for i in range(a, b + 1):
-    if i != 2 or i % 2 == 0:
+for y in range(a, b + 1):
+    if y != 2 or y % 2 == 0:
         arr = []
-        collatz(i, arr)
+        collatz(y, arr)
         if cur_len < len(arr):
-            current = i
+            current = y
             cur_len = len(arr)
-        print(i, len(arr))
+        print(y, len(arr))
 # print(current, cur_len)
 """
 

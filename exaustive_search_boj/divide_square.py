@@ -69,9 +69,9 @@ print(solve(matrix, n, m))
 def solve(arr):
     res = 0
     if len(arr[0]) >= 3:
-        for i in range(1, len(arr[0]) - 1):
-            for j in range(i + 1, len(arr[0])):
-                div = (i, j)
+        for y in range(1, len(arr[0]) - 1):
+            for x in range(y + 1, len(arr[0])):
+                div = (y, x)
                 # sum div1
                 div1 = 0
                 for k in range(len(arr)):
@@ -100,9 +100,9 @@ def solve(arr):
                 res = max(res, val[0] * val[1] * val[2])
 
     if len(arr) >= 3:
-        for i in range(1, len(arr) - 1):
-            for j in range(i + 1, len(arr)):
-                div = (i, j)
+        for y in range(1, len(arr) - 1):
+            for x in range(y + 1, len(arr)):
+                div = (y, x)
 
                 # sum div1
                 div1 = 0

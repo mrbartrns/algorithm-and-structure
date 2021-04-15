@@ -18,7 +18,7 @@ def get_minimum_sum(arr: list, issued: list, sum_list: list, min_val: list, k: i
                 issued[i] = False
 
 # t = int(input())
-# for i in range(t):
+# for y in range(t):
 #     min_val = [0]
 #     n = int(input())
 #     arr = []
@@ -31,7 +31,7 @@ def get_minimum_sum(arr: list, issued: list, sum_list: list, min_val: list, k: i
 #     get_minimum_sum(arr, issued, sum_list, min_val, 0)
 
 
-#     print(f'#{i + 1} {min_val[0]}')
+#     print(f'#{y + 1} {min_val[0]}')
 
 
 

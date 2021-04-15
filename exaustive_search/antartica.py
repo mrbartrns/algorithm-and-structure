@@ -27,13 +27,13 @@ def solve(known, counts, stack):
     if counts not in answer:
         answer.append(counts)
 
-    for i in range(len(words)):
-        if not flag[i]:
-            flag[i] = True
+    for y in range(len(words)):
+        if not flag[y]:
+            flag[y] = True
             added = []
             # 단어를 읽을 수 있는지 확인. 읽을 수 있다면, 1을 반환 및 다음단계로 이동 > 현재 스택으로 돌아왔을 때, 다시 1을 제거
-            temp = list(words[i])
-            val = 1 if can_read(words[i], added) else 0
+            temp = list(words[y])
+            val = 1 if can_read(words[y], added) else 0
             has_added = added[:]
             if has_added:
                 known.extend(temp)
@@ -43,7 +43,7 @@ def solve(known, counts, stack):
                 for _ in range(len(temp)):
                     known.pop()
             # 단어를 읽을 수 없을 때에는,
-            flag[i] = False
+            flag[y] = False
 
 
 # 첫 단어가 틀렸을 때 첫 단어의 값을 모두 빼야 함
@@ -60,7 +60,7 @@ print(answer)
 """
 """
 n, k = map(int, sys.stdin.readline().split())
-known = ["a", "n", "t", "i", "c"]
+known = ["a", "n", "t", "y", "c"]
 words = []
 answer = []
 for _ in range(n):
@@ -103,7 +103,7 @@ words = [set(sys.stdin.readline().rstrip()) for _ in range(n)]
 answer = [0]
 learn = [False] * 26
 
-for c in ("a", "c", "i", "n", "t"):
+for c in ("a", "c", "y", "n", "t"):
     learn[ord(c) - ord("a")] = True
 dfs(0, 0)
 print(answer[0])
@@ -126,11 +126,11 @@ def dfs(idx, cnt):
         answer = max(answer, read_cnt) if answer else read_cnt
         return
 
-    for i in range(idx, 26):
-        if not learn[i]:
-            learn[i] = True
-            dfs(i, cnt + 1)
-            learn[i] = False
+    for y in range(idx, 26):
+        if not learn[y]:
+            learn[y] = True
+            dfs(y, cnt + 1)
+            learn[y] = False
 
 
 if __name__ == "__main__":
@@ -144,7 +144,7 @@ if __name__ == "__main__":
     words = [set(stdin.readline().rstrip()) for _ in range(n)]
     learn = [False] * 26
 
-    for c in ("a", "c", "i", "n", "t"):
+    for c in ("a", "c", "y", "n", "t"):
         learn[ord(c) - ord("a")] = True
 
     dfs(0, 0)

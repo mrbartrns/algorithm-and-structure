@@ -70,9 +70,9 @@ for tc in range(t):
     tree = Tree()
     e, sub = map(int, input().split())
     info = [int(x) for x in input().split()]
-    for i in range(0, len(info), 2):
-        parent = info[i]
-        child = info[i + 1]
+    for y in range(0, len(info), 2):
+        parent = info[y]
+        child = info[y + 1]
         tree.insert(parent, child)
     print(f"#{tc + 1} {tree.size(sub)}")
 """

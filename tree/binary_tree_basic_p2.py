@@ -157,8 +157,8 @@ if __name__ == "__main__":
     # bst.insert(47)
     # bst.insert(49)
     # data = [11, 5, 10, 4, 9, 3, 8, 1, 2, 6, 7]
-    # for i in data:
-    #     bst.insert(i)
+    # for y in data:
+    #     bst.insert(y)
     bst.preorder(bst.root)
     print()
     bst.inorder(bst.root)

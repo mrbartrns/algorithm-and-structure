@@ -54,18 +54,18 @@ def solve(zero_count):
     zero_j = 0
 
     if zero_count == 0:
-        for i in range(len(sudoku)):
-            for j in range(len(sudoku[0])):
-                string += str(sudoku[i][j])
-            if i < len(sudoku) - 1:
+        for y in range(len(sudoku)):
+            for x in range(len(sudoku[0])):
+                string += str(sudoku[y][x])
+            if y < len(sudoku) - 1:
                 string += "\n"
         return string
 
-    for i in range(len(sudoku)):
-        for j in range(len(sudoku[0])):
-            if sudoku[i][j] == 0:
-                zero_i = i
-                zero_j = j
+    for y in range(len(sudoku)):
+        for x in range(len(sudoku[0])):
+            if sudoku[y][x] == 0:
+                zero_i = y
+                zero_j = x
                 zero_found = True
                 break
         if zero_found:
