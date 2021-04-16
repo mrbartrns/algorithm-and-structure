@@ -3,7 +3,7 @@ import heapq
 import sys
 
 si = sys.stdin.readline
-INF = 101
+INF = int(1e9)
 
 
 def dijkstra(start):
