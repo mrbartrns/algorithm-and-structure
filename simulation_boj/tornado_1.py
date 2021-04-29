@@ -66,4 +66,3 @@ while True:
         scale += 1
 
 print(cnt[0])
-
