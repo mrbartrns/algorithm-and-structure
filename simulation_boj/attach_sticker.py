@@ -16,19 +16,56 @@ def rotate(sticker):
     return rotated_sticker
 
 
+def check(start_y, start_x, sticker):
+    height, width = len(sticker), len(sticker[0])
+    for y in range(height):
+        for x in range(width):
+            if start_y + y < 0 or start_y + y >= n or start_x + x < 0 or start_x + x >= m:
+                return False
+            if sticker[y][x] == 1 and graph[start_y + y][start_x + x] == 1:
+                return False
+    return True
+
+
+def attach(start_y, start_x, sticker):
+    height, width = len(sticker), len(sticker[0])
+    for y in range(height):
+        for x in range(width):
+            if sticker[y][x] == 1:
+                graph[start_y + y][start_x + x] = 1
+
+
 # 기본 정보
 n, m, k = map(int, si().split())
 graph = [[0 for _ in range(m)] for _ in range(n)]
 stickers = []
+res = 0
 for _ in range(k):
     sticker_height, sticker_width = map(int, si().split())
     new_sticker = [list(map(int, si().split())) for _ in range(sticker_height)]
     stickers.append(new_sticker)
 
+for st in stickers:
+    sticker = st
+    flag = False
+    cnt = 0
+    while cnt < 4:
+        for i in range(n):
+            for j in range(m):
+                if check(i, j, sticker):
+                    attach(i, j, sticker)
+                    flag = True
+                    break
+            if flag:
+                break
+        if flag:
+            break
+        sticker = rotate(sticker)
+        cnt += 1
 
 
-# test = rotate(stickers[3])
-# for i in range(len(test)):
-#     for j in range(len(test[0])):
-#         print(test[i][j], end=" ")
-#     print()
+for i in range(n):
+    for j in range(m):
+        if graph[i][j] == 1:
+            res += 1
+print(res)
