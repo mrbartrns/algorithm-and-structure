@@ -6,10 +6,14 @@
 
 
 class User:
+    count = 0
+
     def __init__(self, name, email, password):
         self.name = name
         self.email = email
         self.password = password
+        # 클래스 변수는 꼭 클래스를 붙여야 함
+        User.count += 1
 
     # 클래스메서드를 사용하여 클래스에 필요한 정보를 한번에 채울 수 있다.
     @classmethod
@@ -24,9 +28,16 @@ class User:
     def from_list(cls, list_params):
         return cls(list_params[0], list_params[1], list_params[2])
 
+    @classmethod
+    def get_user_number(cls):
+        return cls.count
+
 
 younghoon = User.from_string("강영훈,younghoon@codeit.kr,123456")
 yoonsoo = User.from_list(["이윤수", "yoonsoo@codeit.kr", "abcdef"])
 
 print(younghoon.name, younghoon.email, younghoon.password)
 print(yoonsoo.name, yoonsoo.email, yoonsoo.password)
+print(User.get_user_number())
+# 인스턴스로 호출해도 사용이 가능
+print(yoonsoo.get_user_number())
