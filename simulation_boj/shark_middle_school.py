@@ -14,7 +14,7 @@ def bfs(sy, sx, label_number, color):
     block = 0
     rainbow_block = 0
     que.append((sy, sx))
-    visited[sy][sx] = label_number
+    visited[sy][sx].add(label_number)
     block += 1
     while que:
         y, x = que.popleft()
@@ -25,14 +25,14 @@ def bfs(sy, sx, label_number, color):
                 continue
             if graph[ny][nx] == -1:
                 continue
-            if visited[ny][nx] == -1:
-                if graph[ny][nx] == 0 or graph[ny][nx] == color:
-                    visited[ny][nx] = label_number
-                    que.append((ny, nx))
-                    if graph[ny][nx] == 0:
-                        rainbow_block += 1
-                    else:
-                        block += 1
+            if graph[ny][nx] == color and not visited[ny][nx]:
+                visited[ny][nx].add(label_number)
+                que.append((ny, nx))
+                block += 1
+            elif graph[ny][nx] == 0 and label_number not in visited[ny][nx]:
+                visited[ny][nx].add(label_number)
+                que.append((ny, nx))
+                rainbow_block += 1
     if rainbow_block + block >= 2:
         heapq.heappush(q, (-(rainbow_block + block), -rainbow_block, -block, -sy, -sx, label_number))
 
@@ -70,22 +70,22 @@ score = 0
 while True:
     q = []
     ln = 0
-    visited = [[-1 for _ in range(n)] for _ in range(n)]
+    visited = [[set() for _ in range(n)] for _ in range(n)]
     # bfs 실행하기
     for i in range(n):
         for j in range(n):
-            if visited[i][j] == -1 and graph[i][j] > 0:
+            if not visited[i][j] and graph[i][j] > 0:
+                # 또는 rainbow_visited = [[-1 for _ in range(n)] for _ in range(n)] 선언하여 관리하기
                 bfs(i, j, ln, graph[i][j])
                 ln += 1
     if q:
-        print(q)
         s, _, _, _, _, label = heapq.heappop(q)
         s = abs(s)
         score += s ** 2
         # 블록 지우기
         for i in range(n):
             for j in range(n):
-                if visited[i][j] == label:
+                if label in visited[i][j]:
                     graph[i][j] = -2
         gravity()
         graph = rotate(graph)
