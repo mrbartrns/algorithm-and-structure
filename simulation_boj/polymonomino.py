@@ -5,8 +5,6 @@ from collections import deque
 
 sys.stdin = open('../input.txt', 'r')
 si = sys.stdin.readline
-dy = [-1, 1, 0, 0]
-dx = [0, 0, -1, 1]
 
 
 def move(cur_block):
@@ -67,72 +65,12 @@ def integrate(que):
     @rtype: list
     """
     blocks = []
-    temp_block = []
-    cnt = 1
-    temp = [[False for _ in range(4)] for _ in range(4)]
     t1, y, x = que.popleft()
-    temp[y][x] = True
     blocks.append([y, x])
-    if t1 == 1:
-        return blocks
     if t1 == 2:
-        temp[y][x + 1] = True
         blocks.append([y, x + 1])
-        cnt += 1
     elif t1 == 3:
-        temp[y + 1][x] = True
         blocks.append([y + 1, x])
-        cnt += 1
-    if que:
-        t, y, x = que.popleft()
-        another = [t, y, x]
-        if t1 != t:
-            que.appendleft((another[0], another[1], another[2]))
-            return blocks
-        cnt += (1 if t == 1 else 2)
-        temp[y][x] = True
-        temp_block.append([y, x])
-        if t == 2:
-            temp[y][x + 1] = True
-            temp_block.append([y, x + 1])
-        elif t == 3:
-            temp[y + 1][x] = True
-            temp_block.append([y + 1, x])
-
-        check = False
-        for i in range(4):
-            for j in range(4):
-                if temp[i][j]:
-                    check = True
-                    bet = 1
-                    if t1 == 1:
-                        for d in range(4):
-                            ny = y + dy[d]
-                            nx = x + dx[d]
-                            if ny < 0 or ny >= 4 or nx < 0 or nx >= 4:
-                                continue
-                            if temp[ny][nx]:
-                                bet += 1
-                        if bet != cnt:
-                            que.appendleft((another[0], another[1], another[2]))
-                            return blocks
-                    else:
-                        if i == 0 and temp[i + 1][j] and temp[i + 2][j] and temp[i + 3][j]:
-                            found = True
-                        elif j == 0 and temp[i][j + 1] and temp[i][j + 2] and temp[i][j + 3]:
-                            found = True
-                        elif i + 1 < 4 and j + 1 < 4 and temp[i][j + 1] and temp[i + 1][j] and temp[i + 1][j + 1]:
-                            found = True
-                        else:
-                            que.appendleft((another[0], another[1], another[2]))
-                            return blocks
-                        if found:
-                            blocks += temp_block
-                            return blocks
-            if check:
-                break
-
-    blocks += temp_block
     return blocks
 
 
@@ -179,7 +117,6 @@ def clear_line(graph, color_type, idx, line):
 if __name__ == "__main__":
     n = int(si())
     block = deque()
-    color = [[0 for _ in range(10)] for _ in range(10)]
     graph = [[0 for _ in range(10)] for _ in range(10)]
     score = 0
     left = 0
@@ -213,10 +150,18 @@ if __name__ == "__main__":
         if g_line > 0:
             clear_line(graph, 1, 9, g_line)
 
+        for i in range(10):
+            for j in range(10):
+                print(graph[i][j], end=" ")
+            print()
+        print()
+
     for i in range(10):
         for j in range(10):
             if graph[i][j] > 0:
                 left += 1
+            # print(graph[i][j], end=" ")
+        # print()
 
     print(score)
     print(left)
