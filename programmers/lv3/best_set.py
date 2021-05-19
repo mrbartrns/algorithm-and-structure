@@ -5,15 +5,16 @@
 
 def solution(n, s):
     answer = []
-    a = s // n
-    b = s - a
-    if a == 0 or b == 0:
+    if s // n == 0:
         answer.append(-1)
-    else:
-        answer.append(a)
-        answer.append(b)
-        answer.sort()
+        return answer
+    for _ in range(n):
+        answer.append(s // n)
+    share_rest = s % n
+    for i in range(share_rest):
+        answer[i] += 1
+    answer.sort()
     return answer
 
 
-print(solution(2, 9))
+print(solution(2, 8))
