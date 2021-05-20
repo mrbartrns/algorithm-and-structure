@@ -28,100 +28,24 @@ def get_max_value():
     for i in range(n):
         for j in range(m):
             if j + 3 < m:
-                s = 0
-                for y, x in table[0][0]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
+                res = max(res, get_sum(i, j, 0, 0))
             if i + 3 < n:
-                s = 0
-                for y, x in table[0][1]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
+                res = max(res, get_sum(i, j, 0, 1))
             if i + 1 < n and j + 1 < m:
-                s = 0
-                for y, x in table[1][0]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
+                res = max(res, get_sum(i, j, 1, 0))
             if i + 2 < n and j + 1 < m:
-                s = 0
-                for y, x in table[2][0]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-
-                s = 0
-                for y, x in table[2][2]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-
-                s = 0
-                for y, x in table[2][4]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-
-                s = 0
-                for y, x in table[2][6]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-
-                s = 0
-                for y, x in table[3][0]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-
-                s = 0
-                for y, x in table[3][2]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-
-                s = 0
-                for y, x in table[4][1]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-                s = 0
-                for y, x in table[4][3]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
+                for k in range(0, 8, 2):
+                    res = max(res, get_sum(i, j, 2, k))
+                for k in range(0, 4, 2):
+                    res = max(res, get_sum(i, j, 3, k))
+                    res = max(res, get_sum(i, j, 4, k + 1))
 
             if i + 1 < n and j + 2 < m:
-                s = 0
-                for y, x in table[2][1]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-
-                s = 0
-                for y, x in table[2][3]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-
-                s = 0
-                for y, x in table[2][5]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-
-                s = 0
-                for y, x in table[2][7]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-
-                s = 0
-                for y, x in table[3][1]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-
-                s = 0
-                for y, x in table[3][3]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-
-                s = 0
-                for y, x in table[4][0]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
-
-                s = 0
-                for y, x in table[4][2]:
-                    s += graph[i + y][j + x]
-                res = max(res, s)
+                for k in range(0, 8, 2):
+                    res = max(res, get_sum(i, j, 2, k + 1))
+                for k in range(0, 4, 2):
+                    res = max(res, get_sum(i, j, 3, k + 1))
+                    res = max(res, get_sum(i, j, 4, k))
     return res
 
 
