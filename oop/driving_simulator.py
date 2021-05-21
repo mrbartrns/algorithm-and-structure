@@ -16,7 +16,6 @@ from abc import ABC, abstractmethod
 
 
 class Vehicle(ABC):
-
     @abstractmethod
     def start(self):
         pass
@@ -58,8 +57,8 @@ class Bicycle(Vehicle):
 
 # 코드를 쓰세요
 
-class NormalCar(Vehicle):
 
+class NormalCar(Vehicle):
     def __init__(self, speed, max_speed):
         self._speed = speed
         self.max_speed = max_speed
@@ -81,7 +80,6 @@ class NormalCar(Vehicle):
 
 
 class SportsCar(Vehicle):
-
     def __init__(self, speed, max_speed):
         self._speed = speed
         self.max_speed = max_speed

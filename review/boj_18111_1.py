@@ -9,7 +9,7 @@ MIN = 256
 MAX = -1
 res = 1e12
 h = 0
-
+# hi
 for i in range(n):
     for j in range(m):
         if graph[i][j] < MIN:
