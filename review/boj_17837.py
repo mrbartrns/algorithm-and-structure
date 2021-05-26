@@ -101,3 +101,6 @@ while time <= 1000:
         break
     time += 1
 print(time if chk else -1)
+
+if __name__ == "__main__":
+    print("hello")
