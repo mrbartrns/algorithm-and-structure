@@ -17,7 +17,6 @@ def fish_move(idx: int, maps: list, fish_locations: list, fish_directions: list)
         fish_locations(list): copied fish locations
         fish_directions(list): copied fish directions
     Returns: None
-
     """
     y, x = fish_locations[idx]
     d = fish_directions[idx]
