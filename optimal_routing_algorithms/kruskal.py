@@ -1,52 +1,49 @@
-# kruskal algorithm
+# kruskal algorithms
+import sys
 
-def kruskal(n: int, costs: list) -> int:
-    """
-    kruskal Algorithms
-    Args:
-        n: number of nodes
-        costs: array contains (current_node, next_node, value)
+si = sys.stdin.readline
 
-    Returns(int): total amount of minimum value
+n, m = map(int, si().split())
+graph = []
+for _ in range(m):
+    graph.append(list(map(int, si().split())))  # a -> b : c
 
-    """
-    costs.sort(key=lambda x: x[2])
-    edge = 0
+
+def kruskal():
+    graph.sort(key=lambda x: x[2])
     tot = 0
+    edges = 0
     parent = [i for i in range(n + 1)]
-    for i in range(len(costs)):
-        if edge == n - 1:
-            # n개의 노드는 최대 n - 1개의 간선을 가질 수 있다
+    for i in range(m):
+        if i == n - 1:
             break
-        cur = costs[i][0]
-        next_node = costs[i][1]
-        cost = costs[i][2]
+        cur = graph[i][0]
+        next_node = graph[i][1]
+        cost = graph[i][2]
         if not find_parent(parent, cur, next_node):
             union_parent(parent, cur, next_node)
+            edges += 1
             tot += cost
-            edge += 1
     return tot
 
 
-def find_parent(parent, cur, next_node):
-    cur = get_parent(parent, cur)
-    next_node = get_parent(parent, next_node)
-    if cur != next_node:
-        return False
-    return True
+def get_parent(arr, a):
+    if a == arr[a]:
+        return a
+    arr[a] = get_parent(arr, arr[a])
+    return arr[a]
 
 
-def get_parent(parent, node):
-    if parent[node] == node:
-        return node
-    parent[node] = get_parent(parent, parent[node])
-    return parent[node]
+def find_parent(arr, a, b):
+    a = get_parent(arr, a)
+    b = get_parent(arr, b)
+    return a == b
 
 
-def union_parent(parent, cur, next_node):
-    cur = get_parent(parent, cur)
-    next_node = get_parent(parent, next_node)
-    if cur < next_node:
-        parent[next_node] = cur
+def union_parent(arr, a, b):
+    a = get_parent(arr, a)
+    b = get_parent(arr, b)
+    if a < b:
+        arr[b] = a
     else:
-        parent[cur] = next_node
+        arr[a] = b

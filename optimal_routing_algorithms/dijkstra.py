@@ -1,9 +1,16 @@
-# Dijkstra Algorithms
+# 다익스트라 알고리즘
 import heapq
 import sys
 
 si = sys.stdin.readline
 INF = 987654321
+
+n, m = map(int, si().split())
+graph = [[] for _ in range(n + 1)]
+for _ in range(m):
+    a, b, c = map(int, si().split())
+    graph[a].append((b, c))
+distance = [INF for _ in range(n + 1)]
 
 
 def dijkstra(start):
@@ -16,17 +23,8 @@ def dijkstra(start):
             continue
 
         for j in graph[now]:
-            cost = j[1] + dist
-            if distance[j[0]] > cost:  # next node value
+            cost = dist + j[1]
+            if distance[j[0]] > cost:
                 distance[j[0]] = cost
                 heapq.heappush(q, (cost, j[0]))
 
-
-n, m = map(int, si().split())
-distance = [INF for _ in range(n + 1)]
-graph = [[] for _ in range(n + 1)]
-for _ in range(m):
-    a, b, c = map(int, si().split())  # a -> b: c
-    graph[a].append((b, c))
-
-dijkstra(1)

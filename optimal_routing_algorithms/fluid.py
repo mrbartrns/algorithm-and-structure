@@ -1,4 +1,4 @@
-# fluid algorithm
+# fluid algorithms
 import sys
 
 si = sys.stdin.readline
@@ -7,7 +7,7 @@ INF = 987654321
 n, m = map(int, si().split())
 dp = [[INF for _ in range(n + 1)] for _ in range(n + 1)]
 for _ in range(m):
-    a, b, c = map(int, si().split())  # a -> b: c
+    a, b, c = map(int, si().split())
     dp[a][b] = c
 
 
