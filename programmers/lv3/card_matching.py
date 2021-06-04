@@ -10,12 +10,10 @@ INF = 987654321
 
 def solution(board, r, c):
     answer = INF
-    cards = find_card(board)
-    orders = list(permutations(cards))
-    cards_idx = get_card_idx(board)
+    cards_idx_list = list(permutations(match_card(board)))
     same_card_orders = []
-    get_order(same_card_orders, len(cards), [], 0)
-    locations = setting(cards_idx, orders, same_card_orders)
+    get_order(same_card_orders, len(cards_idx_list[0]), [], 0)
+    locations = setting(cards_idx_list, same_card_orders)
     for i in range(len(locations)):
         for j in range(len(locations[i])):
             res = 0
@@ -28,6 +26,38 @@ def solution(board, r, c):
             answer = min(answer, res)
 
     return answer
+
+
+def match_card(board):
+    temp = [[] for _ in range(len(board) * len(board) + 1)]
+    ret = []
+    for i in range(len(board)):
+        for j in range(len(board)):
+            if board[i][j] > 0:
+                idx = board[i][j]
+                temp[idx].append([i, j])
+    for i in range(len(temp)):
+        if not temp[i]:
+            continue
+        ret.append(temp[i])
+    return ret
+
+
+def setting(cards_idx_list, same_card_orders):
+    ret = []
+    for i in range(len(cards_idx_list)):
+        cur_set = cards_idx_list[i]
+        temp = []
+        for j in range(len(same_card_orders)):
+            order = same_card_orders[j]
+            temp1 = []
+            for k in range(len(order)):
+                order_idx = order[k]
+                temp1.append(cur_set[k][order_idx])
+                temp1.append(cur_set[k][1 - order_idx])
+            temp.append(temp1)
+        ret.append(temp)
+    return ret
 
 
 def find_card(board):
@@ -63,23 +93,6 @@ def get_order(orders, length, cur, cnt):
         cur.append(i)
         get_order(orders, length, cur, cnt + 1)
         cur.pop()
-
-
-def setting(cards_idx, orders, same_card_orders):
-    ret = []
-    for i in range(len(orders)):
-        order = orders[i]
-        temp = []
-        for j in range(len(same_card_orders)):
-            temp1 = []
-            for k in range(len(same_card_orders[j])):
-                idx = order[k]
-                same_card_idx = same_card_orders[j][k]
-                temp1.append(cards_idx[idx][same_card_idx])
-                temp1.append(cards_idx[idx][1 - same_card_idx])
-            temp.append(temp1)
-        ret.append(temp)
-    return ret
 
 
 def bfs(maps, sy, sx, ey, ex):
@@ -122,5 +135,5 @@ def bfs(maps, sy, sx, ey, ex):
 
 
 if __name__ == "__main__":
-    board = [[3, 0, 0, 2], [0, 0, 1, 0], [0, 1, 0, 0], [2, 0, 0, 3]]
-    print(solution(board, 0, 1))
+    board = [[1, 0, 0, 3], [2, 0, 0, 0], [0, 0, 0, 2], [3, 0, 1, 0]]
+    print(solution(board, 1, 0))
