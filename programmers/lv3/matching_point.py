@@ -1,33 +1,31 @@
-# 매칭 점수
 import re
 
 
 def get_base_point(word, page):
-    p = re.compile(rf"[^a-zA-Z]({word})[^a-zA-Z]|\b({word})\b|\b({word})[^a-zA-Z]|[^a-zA-Z]({word})\b", re.IGNORECASE)
-    ret = p.findall(page)
+    """
+    word parsing and counting function
+    Args:
+        word: word what I want to match
+        page:
+
+    Returns:
+
+    """
+    ret = re.sub('[^a-z]', '.', page.lower()).split('.')
+    ret = list(filter(lambda x: x == word.lower(), ret))
     return len(ret)
 
 
 def get_current_website(page):
-    p = re.compile(r'<meta property="og:url" content="(.+)"/>')
-    ret = p.search(page)
-    return ret.group(1)  # return first matched object
+    p = re.compile(r'<meta property="og:url" content="(.*?)"/>')
+    ret = p.findall(page)
+    return ret  # return first matched object
 
 
 def get_external_website(page):
-    p = re.compile(r'<a href="(.+)"\s|<a href="(.+)"')
+    p = re.compile(r'<a href="(.*?)">')
     ret = p.findall(page)
-    print(ret)
     return ret
-
-
-def get_score(word, page):
-    score = 0
-    base_score = get_base_point(word, page)
-    external_sites = get_external_website(page)
-    score += base_score
-    score /= len(external_sites)
-    return score
 
 
 def solution(word, pages):
@@ -37,31 +35,37 @@ def solution(word, pages):
     scores = [0] * len(pages)
     link_scores = [0] * len(pages)
     exist = set()
+    # get index of current website
     for i in range(len(pages)):
         page = pages[i]
-        current_website = get_current_website(page)
+        current_website = get_current_website(page)[0]
         addresses[current_website] = i
-        link_scores[i] = get_score(word, page)
         exist.add(current_website)
+        base_score = get_base_point(word, page)
+        outer_sites = get_external_website(page)
+        scores[i] = base_score
+        link_scores[i] = scores[i] / len(outer_sites) if outer_sites else 0
+
     for i in range(len(pages)):
         page = pages[i]
-        external_sites = get_external_website(page)
-        score = link_scores[i]
-        scores[i] += score
-        for site in external_sites:
-            if site not in exist:
+        outer_sites = get_external_website(page)
+        for j in range(len(outer_sites)):
+            outer_site = outer_sites[j]
+            if outer_site not in exist:
                 continue
-            idx = addresses[site]
-            scores[idx] += score
+            scores[addresses[outer_site]] += link_scores[i]
+
     for i in range(len(scores)):
         if max_scores < scores[i]:
-            answer = i
             max_scores = scores[i]
+            answer = i
     return answer
 
 
 if __name__ == "__main__":
-    string = "hi hi1234 023hi HI"
-    word = "hi"
-    p = re.compile(rf"\b({word})\b|[^a-zA-Z]({word})[^a-zA-Z]|\b({word})[^a-zA-Z]|[^a-zA-Z]({word})\b", re.I | re.S)
-    print(p.findall(string))
+    arr = [
+        "<html lang=\"ko\" xml:lang=\"ko\" xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta property=\"og:url\" content=\"https://a.com\"/>\n</head>  \n<body>\nBlind Lorem Blind ipsum dolor Blind test sit amet, consectetur adipiscing elit. \n<a href=\"https://b.com\"> Link to b </a>\n</body>\n</html>",
+        "<html lang=\"ko\" xml:lang=\"ko\" xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta property=\"og:url\" content=\"https://b.com\"/>\n</head>  \n<body>\nSuspendisse potenti. Vivamus venenatis tellus non turpis bibendum, \n<a href=\"https://a.com\"> Link to a </a>\nblind sed congue urna varius. Suspendisse feugiat nisl ligula, quis malesuada felis hendrerit ut.\n<a href=\"https://c.com\"> Link to c </a>\n</body>\n</html>",
+        "<html lang=\"ko\" xml:lang=\"ko\" xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta property=\"og:url\" content=\"https://c.com\"/>\n</head>  \n<body>\nUt condimentum urna at felis sodales rutrum. Sed dapibus cursus diam, non interdum nulla tempor nec. Phasellus rutrum enim at orci consectetu blind\n<a href=\"https://a.com\"> Link to a </a>\n</body>\n</html>"]
+    word = "blind"
+    print(solution(word, arr))
