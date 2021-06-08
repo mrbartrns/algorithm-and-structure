@@ -1,35 +1,29 @@
-# 광고 삽입
-from collections import deque
-
-
 def solution(play_time, adv_time, logs):
     vector = [0] * 360000
-    que = deque()
     for log in logs:
         start_time = get_time(log[:8])
         end_time = get_time(log[9:])
-        vector[start_time] += 1
-        vector[end_time] -= 1
+        for i in range(start_time, end_time):
+            vector[i] += 1
 
     length = get_time(adv_time)
     tot = get_time(play_time)
     max_idx = 0
     s = 0
-    for i in range(1, tot):
-        vector[i] += vector[i - 1]
-
     for i in range(length):
         s += vector[i]
-        que.append(vector[i])
 
     max_sum = s
-    for i in range(length, tot):
-        que.append(vector[i])
-        s += vector[i]
-        s -= que.popleft()
-        if s > max_sum:
+    left = 0
+    right = length - 1
+    while right < tot:
+        s -= vector[left]
+        left += 1
+        right += 1
+        s += vector[right]
+        if max_sum < s:
             max_sum = s
-            max_idx = i - length + 1
+            max_idx = left
     answer = get_string_time(max_idx)
     return answer
 
@@ -45,14 +39,14 @@ def get_time(time):
 def get_string_time(time):
     s = str(time % 60) if time % 60 >= 10 else "0" + str(time % 60)
     time //= 60
-    m = str(time % 60) if time % 60 >= 10 else "0" + str(time % 60)
+    m = time % 60 if time % 60 >= 10 else "0" + str(time % 60)
     time //= 60
-    h = str(time) if time >= 10 else "0" + str(time % 60)
-    return h + ":" + m + ":" + s
+    h = time if time >= 10 else "0" + str(time % 60)
+    return f"{h}:{m}:{s}"
 
 
 if __name__ == "__main__":
-    play_time = "02:03:55"
-    adv_time = "00:14:15"
-    logs = ["01:20:15-01:45:14", "00:40:31-01:00:00", "00:25:50-00:48:29", "01:30:59-01:53:29", "01:37:44-02:02:30"]
+    play_time = "99:59:59"
+    adv_time = "25:00:00"
+    logs = ["69:59:59-89:59:59", "01:00:00-21:00:00", "79:59:59-99:59:59", "11:00:00-31:00:00"]
     print(solution(play_time, adv_time, logs))
