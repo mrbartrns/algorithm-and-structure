@@ -7,6 +7,10 @@ def solution(triangle):
             dp[i][j] = dp[i - 1][j] + triangle[i][j]
             if j > 0:
                 dp[i][j] = max(dp[i - 1][j - 1] + triangle[i][j], dp[i][j])
+    for i in range(len(triangle)):
+        for j in range(len(triangle)):
+            print(dp[i][j], end=" ")
+        print()
     return max(dp[len(triangle) - 1])
 
 
