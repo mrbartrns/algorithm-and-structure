@@ -1,33 +1,17 @@
-def solution(n, stations, w):
-    answer = 0
-    start = 0
-    dis = 2 * w + 1
-    stations.sort()
-    for i in range(len(stations)):
-        left = stations[i] - 1 - w
-        right = stations[i] + w
-        if left <= start <= right:
-            start = right
-            continue
+import sys
 
-        div = (left - start) // dis
-        rest = (left - start) % dis
-        if rest > 0:
-            div += 1
-        answer += div
-        start = right
-
-    if start < n:
-        div = (n - start) // dis
-        rest = (n - start) % dis
-        if rest > 0:
-            div += 1
-        answer += div
-    return answer
+si = sys.stdin.readline
 
 
-if __name__ == "__main__":
-    n = 11
-    stations = [4, 11]
-    w = 1
-    print(solution(n, stations, w))
+def solve(n, m, x):
+    number = x - 1
+    a = number % n
+    b = number // n
+    return a * m + b + 1
+
+
+t = int(si())
+
+for _ in range(t):
+    n, m, x = map(int, si().split())
+    print(solve(n, m, x))
