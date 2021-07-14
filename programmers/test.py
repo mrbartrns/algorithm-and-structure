@@ -1,16 +1,31 @@
-def solution(routes):
-    answer = 1
-    routes.sort(key=lambda x: x[0])
-    last_time = routes[0][1]
-    for i in range(1, len(routes)):
-        if last_time < routes[i][0]:
-            answer += 1
-            last_time = routes[i][1]
-        elif routes[i][1] < last_time:
-            last_time = routes[i][1]
-    return answer
+def solution(a):
+    answer = 0
+    counts = [0] * len(a)
+    if len(a) <= 1:
+        return answer
+    s = set()
+    for i in range(len(a)):
+        s.add(a[i])
+        counts[a[i]] += 1
+
+    for number in s:
+        if counts[number] <= answer:
+            continue
+        left = 0
+        right = 1
+        res = 0
+        while right < len(a):
+            if a[left] != a[right] and (a[left] == number or a[right] == number):
+                res += 1
+                left = right + 1
+                right = left + 1
+            else:
+                left += 1
+                right += 1
+        answer = max(res, answer)
+    return answer * 2
 
 
 if __name__ == "__main__":
-    routes = [[-20, 15], [-14, -5], [-18, -13], [-5, -3]]
-    print(solution(routes))
+    a = [5, 2, 3, 3, 5, 3]
+    print(solution(a))
