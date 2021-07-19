@@ -1,49 +1,46 @@
-from collections import deque
+import copy
 
 
-def solution(n, t, m, table):
-    timetable = [get_time(table[i]) for i in range(len(table))]
-    shuttle_table = []
-    shuttle_start = get_time("09:00")
-    timetable.sort()
-    que = deque(timetable)
-    answer = 0
-    for i in range(n):
-        shuttle_table.append(shuttle_start)
-        shuttle_start += t
+def solution(key, lock):
+    key_size = len(key)
+    lock_size = len(lock)
+    board = [[0 for _ in range(2 * key_size + lock_size)] for _ in range(2 * key_size + lock_size)]
+    for i in range(lock_size):
+        for j in range(lock_size):
+            board[key_size + i][key_size + j] = lock[i][j]
 
-    for i in range(len(shuttle_table)):
-        arr = []
-        for _ in range(m):
-            if que and shuttle_table[i] >= que[0]:
-                arr.append(que.popleft())
-            else:
-                break
-
-        if i == len(shuttle_table) - 1:
-            if len(arr) < m:
-                answer = shuttle_table[i]
-            else:
-                answer = arr[-1] - 1
-
-    return get_str_time(answer)
+    for sy in range(key_size + lock_size):
+        for sx in range(key_size + lock_size):
+            for _ in range(4):
+                key = rotate(key)
+                maps = copy.deepcopy(board)
+                for y in range(key_size):
+                    for x in range(key_size):
+                        maps[sy + y][sx + x] += key[y][x]
+                if check(maps, key_size, lock_size):
+                    return True
+    return False
 
 
-def get_time(time):
-    hour = 60 * int(time[:2])
-    minute = int(time[3:])
-    return hour + minute
+def rotate(key):
+    ret = []
+    for x in range(len(key)):
+        temp = []
+        for y in range(len(key) - 1, -1, -1):
+            temp.append(key[y][x])
+        ret.append(temp)
+    return ret
 
 
-def get_str_time(time):
-    hour = str(time // 60) if time // 60 >= 10 else "0" + str(time // 60)
-    minute = str(time % 60) if time % 60 >= 10 else "0" + str(time % 60)
-    return hour + ":" + minute
+def check(maps, key_size, lock_size):
+    for y in range(lock_size):
+        for x in range(lock_size):
+            if maps[key_size + y][key_size + x] != 1:
+                return False
+    return True
 
 
 if __name__ == "__main__":
-    n = 2
-    t = 1
-    m = 2
-    table = ["09:00", "09:00", "09:00", "09:00"]
-    print(solution(n, t, m, table))
+    key = [[0, 0, 0], [1, 0, 0], [0, 1, 1]]
+    lock = [[1, 1, 1], [1, 1, 0], [1, 0, 1]]
+    print(solution(key, lock))
