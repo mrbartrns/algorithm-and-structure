@@ -1,56 +1,67 @@
-import re
+from collections import deque
 
 
-def solution(word, pages):
-    base_points = []
-    external_urls = []
-    link_scores = []
-    s = set()
-    current_urls = {}
-    for i in range(len(pages)):
-        page = pages[i]
-        base_point = get_base_point(word, page)
-        base_points.append(base_point)
-        external_url = get_external_urls(page)
-        external_urls.append(external_url)
-        link_scores.append(base_point / len(external_url) if len(external_url) else 0)
-        current_url = get_current_url(page)
-        current_urls[current_url] = i
-        s.add(current_url)
-
-    # 현재 외부링크에 있는 링크가 s에 존재한다면, 외부링크 점수에 현재 링크 점수를 더한다
-    for i in range(len(pages)):
-        for j in range(len(external_urls[i])):
-            if external_urls[i][j] in s:
-                cur_url_idx = current_urls[external_urls[i][j]]
-                base_points[cur_url_idx] += link_scores[i]
-
-    return base_points.index(max(base_points))
+dy = [-1, 1, 0, 0]
+dx = [0, 0, -1, 1]
 
 
-def get_base_point(word, page):
-    new_page = re.sub("[^a-z]", ".", page.lower())
-    ret = list(filter(lambda x: x == word.lower(), new_page.split(".")))
-    return len(ret)
+def solution(board):
+    que = deque()
+    visited = set()  # y, x, direction
+    visited.add((0, 0, 0, 1, 0))
+    que.append((0, 0, 0, 1, 0, 0))  # y1, x1, y2, x2, d, cnt
+    while que:
+        y1, x1, y2, x2, d, cnt = que.popleft()
+        if (y1 == len(board) - 1 and x1 == len(board) - 1) or (
+            y2 == len(board) - 1 and x2 == len(board) - 1
+        ):
+            return cnt
 
+        for i in range(4):
+            ny1 = y1 + dy[i]
+            nx1 = x1 + dx[i]
+            ny2 = y2 + dy[i]
+            nx2 = x2 + dx[i]
 
-def get_current_url(page):
-    p = re.compile('<meta property="og:url" content="(.*?)"/>')
-    ret = p.findall(page)
-    return ret[0]
+            if (
+                ny1 < 0
+                or ny1 >= len(board)
+                or nx1 < 0
+                or nx1 >= len(board)
+                or ny2 < 0
+                or ny2 >= len(board)
+                or nx2 < 0
+                or nx2 >= len(board)
+            ):
+                continue
 
+            if board[ny1][nx1] == 1 or board[ny2][nx2] == 1:
+                continue
 
-def get_external_urls(page):
-    p = re.compile('<a href="(.*?)">')
-    ret = p.findall(page)
-    return ret
+            # 단순 이동
+            if (ny1, nx1, ny2, nx2, d) not in visited:
+                visited.add((ny1, nx1, ny2, nx2, d))
+                que.append((ny1, nx1, ny2, nx2, d, cnt + 1))
+
+            # 회전 이동 조건
+            if d != i // 2:
+                continue
+
+            if (y1, x1, ny1, nx1, 1 - d) not in visited:
+                visited.add((y1, x1, ny1, nx1, 1 - d))
+                que.append((y1, x1, ny1, nx1, 1 - d, cnt + 1))
+
+            if (y2, x2, ny2, nx2, 1 - d) not in visited:
+                visited.add((y2, x2, ny2, nx2, 1 - d))
+                que.append((y2, x2, ny2, nx2, 1 - d, cnt + 1))
 
 
 if __name__ == "__main__":
-    word = "blind"
-    pages = [
-        '<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml">\n<head>\n  <meta charset="utf-8">\n  <meta property="og:url" content="https://a.com"/>\n</head>  \n<body>\nBlind Lorem Blind ipsum dolor Blind test sit amet, consectetur adipiscing elit. \n<a href="https://b.com"> Link to b </a>\n</body>\n</html>',
-        '<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml">\n<head>\n  <meta charset="utf-8">\n  <meta property="og:url" content="https://b.com"/>\n</head>  \n<body>\nSuspendisse potenti. Vivamus venenatis tellus non turpis bibendum, \n<a href="https://a.com"> Link to a </a>\nblind sed congue urna varius. Suspendisse feugiat nisl ligula, quis malesuada felis hendrerit ut.\n<a href="https://c.com"> Link to c </a>\n</body>\n</html>',
-        '<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml">\n<head>\n  <meta charset="utf-8">\n  <meta property="og:url" content="https://c.com"/>\n</head>  \n<body>\nUt condimentum urna at felis sodales rutrum. Sed dapibus cursus diam, non interdum nulla tempor nec. Phasellus rutrum enim at orci consectetu blind\n<a href="https://a.com"> Link to a </a>\n</body>\n</html>',
+    board = [
+        [0, 0, 0, 1, 1],
+        [0, 0, 0, 1, 0],
+        [0, 1, 0, 1, 1],
+        [1, 1, 0, 0, 1],
+        [0, 0, 0, 0, 0],
     ]
-    print(solution(word, pages))
+    print(solution(board))
