@@ -1,67 +1,27 @@
-from collections import deque
+# 가장 긴 팰린드롬
+def is_palindrome(s, i, j, dp):
+    if i >= j:
+        return 1
+
+    if dp[i][j] > -1:
+        return dp[i][j]
+
+    dp[i][j] = 0
+    if s[i] == s[j]:
+        dp[i][j] = is_palindrome(s, i + 1, j - 1, dp)
+    return dp[i][j]
 
 
-dy = [-1, 1, 0, 0]
-dx = [0, 0, -1, 1]
-
-
-def solution(board):
-    que = deque()
-    visited = set()  # y, x, direction
-    visited.add((0, 0, 0, 1, 0))
-    que.append((0, 0, 0, 1, 0, 0))  # y1, x1, y2, x2, d, cnt
-    while que:
-        y1, x1, y2, x2, d, cnt = que.popleft()
-        if (y1 == len(board) - 1 and x1 == len(board) - 1) or (
-            y2 == len(board) - 1 and x2 == len(board) - 1
-        ):
-            return cnt
-
-        for i in range(4):
-            ny1 = y1 + dy[i]
-            nx1 = x1 + dx[i]
-            ny2 = y2 + dy[i]
-            nx2 = x2 + dx[i]
-
-            if (
-                ny1 < 0
-                or ny1 >= len(board)
-                or nx1 < 0
-                or nx1 >= len(board)
-                or ny2 < 0
-                or ny2 >= len(board)
-                or nx2 < 0
-                or nx2 >= len(board)
-            ):
-                continue
-
-            if board[ny1][nx1] == 1 or board[ny2][nx2] == 1:
-                continue
-
-            # 단순 이동
-            if (ny1, nx1, ny2, nx2, d) not in visited:
-                visited.add((ny1, nx1, ny2, nx2, d))
-                que.append((ny1, nx1, ny2, nx2, d, cnt + 1))
-
-            # 회전 이동 조건
-            if d != i // 2:
-                continue
-
-            if (y1, x1, ny1, nx1, 1 - d) not in visited:
-                visited.add((y1, x1, ny1, nx1, 1 - d))
-                que.append((y1, x1, ny1, nx1, 1 - d, cnt + 1))
-
-            if (y2, x2, ny2, nx2, 1 - d) not in visited:
-                visited.add((y2, x2, ny2, nx2, 1 - d))
-                que.append((y2, x2, ny2, nx2, 1 - d, cnt + 1))
+def solution(s):
+    answer = 0
+    dp = [[-1 for _ in range(len(s))] for _ in range(len(s))]
+    for i in range(len(s)):
+        for j in range(i, len(s)):
+            if is_palindrome(s, i, j, dp) == 1:
+                answer = max(answer, j - i + 1)
+    return answer
 
 
 if __name__ == "__main__":
-    board = [
-        [0, 0, 0, 1, 1],
-        [0, 0, 0, 1, 0],
-        [0, 1, 0, 1, 1],
-        [1, 1, 0, 0, 1],
-        [0, 0, 0, 0, 0],
-    ]
-    print(solution(board))
+    a = "abcdcba"
+    print(solution(a))
