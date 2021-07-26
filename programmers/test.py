@@ -1,31 +1,41 @@
-def solution(n, k):
-    dp = [0] * 21
-    dp[0] = 1
-    for i in range(1, 21):
-        dp[i] = dp[i - 1] * i
-    arr = [i + 1 for i in range(n)]
-    return solve(n, k - 1, dp, set(), arr)
+def solution(n, costs):
+    edges = 0
+    tot = 0
+    parents = [i for i in range(n)]
+    costs.sort(key=lambda x: x[2])
+    for i in range(len(costs)):
+        a, b, c = costs[i]
+        if not find_parent(parents, a, b):
+            union_parent(parents, a, b)
+            edges += 1
+            tot += c
+
+        if edges == n - 1:
+            break
+    return tot
 
 
-def solve(n, k, dp, s, arr):
-    answer = []
-    if n < 0:
-        return answer
-    idx = k // dp[n - 1]
-    left = k % dp[n - 1]
-    cnt = 0
-    for i in range(len(arr)):
-        if arr[i] not in s:
-            if cnt == idx:
-                s.add(arr[i])
-                answer.append(arr[i])
-                break
-            cnt += 1
-    answer += solve(n - 1, left, dp, s, arr)
-    return answer
+def get_parent(arr, a):
+    if arr[a] == a:
+        return a
+    arr[a] = get_parent(arr, arr[a])
+    return arr[a]
+
+
+def find_parent(arr, a, b):
+    return get_parent(arr, a) == get_parent(arr, b)
+
+
+def union_parent(arr, a, b):
+    a = get_parent(arr, a)
+    b = get_parent(arr, b)
+    if a < b:
+        arr[b] = a
+    else:
+        arr[a] = b
 
 
 if __name__ == "__main__":
-    n = 3
-    k = 5
-    print(solution(n, k))
+    n = 4
+    costs = [[0, 1, 1], [0, 2, 2], [1, 2, 5], [1, 3, 1], [2, 3, 8]]
+    print(solution(n, costs))
