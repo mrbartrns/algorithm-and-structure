@@ -1,41 +1,25 @@
-def solution(n, costs):
-    edges = 0
-    tot = 0
-    parents = [i for i in range(n)]
-    costs.sort(key=lambda x: x[2])
-    for i in range(len(costs)):
-        a, b, c = costs[i]
-        if not find_parent(parents, a, b):
-            union_parent(parents, a, b)
-            edges += 1
-            tot += c
+def solution(a):
+    if len(a) <= 2:
+        return len(a)
 
-        if edges == n - 1:
-            break
-    return tot
+    answer = 0
+    arr = []
+    for i in range(len(a)):
+        arr.append((a[i], i))
 
+    arr.sort()
+    f_idx = min(arr[0][1], arr[1][1])
+    s_idx = max(arr[0][1], arr[1][1])
+    for i in range(2, len(arr)):
+        if f_idx < arr[i][1] < s_idx:
+            continue
 
-def get_parent(arr, a):
-    if arr[a] == a:
-        return a
-    arr[a] = get_parent(arr, arr[a])
-    return arr[a]
-
-
-def find_parent(arr, a, b):
-    return get_parent(arr, a) == get_parent(arr, b)
-
-
-def union_parent(arr, a, b):
-    a = get_parent(arr, a)
-    b = get_parent(arr, b)
-    if a < b:
-        arr[b] = a
-    else:
-        arr[a] = b
+        answer += 1
+        f_idx = min(f_idx, arr[i][1])
+        s_idx = max(s_idx, arr[i][1])
+    return answer + 2
 
 
 if __name__ == "__main__":
-    n = 4
-    costs = [[0, 1, 1], [0, 2, 2], [1, 2, 5], [1, 3, 1], [2, 3, 8]]
-    print(solution(n, costs))
+    a = [-16, 27, 65, -2, 58, -92, -71, -68, -61, -33]
+    print(solution(a))
