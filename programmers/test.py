@@ -1,62 +1,43 @@
-def solution(n, build_frame):
-    board = [[[0, 0] for _ in range(n + 1)] for _ in range(n + 1)]
-    for y, x, a, b in build_frame:
-        if b == 1:  # install
-            if check(y, x, a, board):
-                board[y][x][a] = 1
-        else:
-            board[y][x][a] = 0
-            for i in range(n + 1):
-                for j in range(n + 1):
-                    for k in range(2):
-                        if board[i][j][k] and not check(i, j, k, board):
-                            board[y][x][a] = 1
+from bisect import bisect_left, bisect_right
 
+
+def solution(words, queries):
+    board = [[] for _ in range(10001)]
+    board_rev = [[] for _ in range(10001)]
     answer = []
-    for i in range(n + 1):
-        for j in range(n + 1):
-            for k in range(2):
-                if board[i][j][k]:
-                    answer.append([i, j, k])
+
+    for word in words:
+        board[len(word)].append(word)
+        board_rev[len(word)].append(word[::-1])
+    for i in range(1, 10001):
+        board[i].sort()
+        board_rev[i].sort()
+
+    for query in queries:
+        if query[0] == "?":
+            answer.append(
+                get_counts(
+                    board_rev[len(query)],
+                    query[::-1].replace("?", "a"),
+                    query[::-1].replace("?", "z"),
+                )
+            )
+        else:
+            answer.append(
+                get_counts(
+                    board[len(query)], query.replace("?", "a"), query.replace("?", "z")
+                )
+            )
     return answer
 
 
-def check(y, x, frame, board):
-    if frame == 0:  # 기둥
-        if (
-            x == 0
-            or (x - 1 >= 0 and board[y][x - 1][frame])
-            or (y - 1 >= 0 and board[y - 1][x][1 - frame])
-            or board[y][x][1 - frame]
-        ):
-            return True
-    else:
-        if (
-            (x - 1 >= 0 and board[y][x - 1][1 - frame])
-            or (x - 1 >= 0 and y + 1 < len(board) and board[y + 1][x - 1][1 - frame])
-            or (
-                y - 1 >= 0
-                and y + 1 < len(board)
-                and board[y - 1][x][frame]
-                and board[y + 1][x][frame]
-            )
-        ):
-            return True
-    return False
+def get_counts(arr, left_value, right_value):
+    left = bisect_left(arr, left_value)
+    right = bisect_right(arr, right_value)
+    return right - left
 
 
 if __name__ == "__main__":
-    n = 5
-    build_frame = [
-        [0, 0, 0, 1],
-        [2, 0, 0, 1],
-        [4, 0, 0, 1],
-        [0, 1, 1, 1],
-        [1, 1, 1, 1],
-        [2, 1, 1, 1],
-        [3, 1, 1, 1],
-        [2, 0, 0, 0],
-        [1, 1, 1, 0],
-        [2, 2, 0, 1],
-    ]
-    print(solution(n, build_frame))
+    words = ["frodo", "front", "frost", "frozen", "frame", "kakao"]
+    queries = ["fro??", "????o", "fr???", "fro???", "pro?"]
+    print(solution(words, queries))
