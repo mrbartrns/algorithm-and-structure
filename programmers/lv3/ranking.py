@@ -1,34 +1,72 @@
-def solution(n, results):
-    answer = 0
-    win = [set() for _ in range(n + 1)]
-    lose = [set() for _ in range(n + 1)]
-    # make win graph and lose graph
-    for i in range(len(results)):
-        w, l = results[i]
-        win[w].add(l)
-        lose[l].add(w)
+from collections import deque
 
-    for i in range(1, n + 1):
-        true_cnt = 0
-        visited = [False for _ in range(n + 1)]
-        dfs(i, win, visited)
-        dfs(i, lose, visited)
-        for j in range(1, n + 1):
-            if visited[j]:
-                true_cnt += 1
-        if true_cnt == n:
-            answer += 1
-    return answer
+dy = [-1, 1, 0, 0]
+dx = [0, 0, -1, 1]
 
 
-def dfs(idx, arr, visited):
-    visited[idx] = True
-    for v in arr[idx]:
-        if not visited[v]:
-            dfs(v, arr, visited)
+def solution(board, r, c):
+    string = ""
+    for i in range(4):
+        for j in range(4):
+            string += str(board[i][j])
+
+    que = deque()
+    visited = set()
+    visited.add((r, c, string, -1))
+    que.append((r, c, string, -1, 0))
+    while que:
+        y, x, maps, enter, cnt = que.popleft()
+        pos = 4 * y + x
+
+        if maps.count("0") == 16:
+            return cnt
+
+        # 1칸 이동
+        for i in range(4):
+            ny = y + dy[i]
+            nx = x + dx[i]
+
+            if ny < 0 or ny >= 4 or nx < 0 or nx >= 4:
+                continue
+
+            if (ny, nx, maps, enter) not in visited:
+                visited.add((ny, nx, maps, enter))
+                que.append((ny, nx, maps, enter, cnt + 1))
+
+        # n칸 이동
+        for i in range(4):
+            ny = y + dy[i]
+            nx = x + dx[i]
+
+            while True:
+                if ny < 0 or ny >= 4 or nx < 0 or nx >= 4:
+                    ny -= dy[i]
+                    nx -= dx[i]
+                    break
+
+                if maps[4 * ny + nx] != "0":
+                    break
+
+                ny += dy[i]
+                nx += dx[i]
+
+            if (ny, nx, maps, enter) not in visited:
+                visited.add((ny, nx, maps, enter))
+                que.append((ny, nx, maps, enter, cnt + 1))
+
+        # enter
+        if enter == -1 and (y, x, maps, pos) not in visited:
+            visited.add((y, x, maps, pos))
+            que.append((y, x, maps, pos, cnt + 1))
+        elif enter != pos and maps[enter] == maps[pos]:
+            new_maps = maps.replace(maps[enter], "0")
+            if (y, x, new_maps, -1) not in visited:
+                visited.add((y, x, new_maps, -1))
+                que.append((y, x, new_maps, -1, cnt + 1))
 
 
 if __name__ == "__main__":
-    n = 5
-    results = [[4, 3], [4, 2], [3, 2], [1, 2], [2, 5]]
-    print(solution(n, results))
+    board = [[1, 0, 0, 3], [2, 0, 0, 0], [0, 0, 0, 2], [3, 0, 1, 0]]
+    r = 1
+    c = 0
+    print(solution(board, r, c))

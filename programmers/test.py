@@ -1,43 +1,66 @@
-from bisect import bisect_left, bisect_right
+class Node:
+    def __init__(self, data):
+        self.prev = None
+        self.next = None
+        self.data = data
 
 
-def solution(words, queries):
-    board = [[] for _ in range(10001)]
-    board_rev = [[] for _ in range(10001)]
-    answer = []
+def solution(n, k, cmds):
+    linked_list = [Node(0)]
+    deleted = []
+    state = ["O"] * n
 
-    for word in words:
-        board[len(word)].append(word)
-        board_rev[len(word)].append(word[::-1])
-    for i in range(1, 10001):
-        board[i].sort()
-        board_rev[i].sort()
+    for i in range(1, n):
+        node = Node(i)
+        prev = linked_list[i - 1]
+        prev.next = node
+        node.prev = prev
+        linked_list.append(node)
 
-    for query in queries:
-        if query[0] == "?":
-            answer.append(
-                get_counts(
-                    board_rev[len(query)],
-                    query[::-1].replace("?", "a"),
-                    query[::-1].replace("?", "z"),
-                )
-            )
+    cur_node = linked_list[k]
+
+    for cmd in cmds:
+        if len(cmd) > 1:
+            command = cmd.split(" ")
+            if command[0] == "D":
+                for _ in range(int(command[1])):
+                    cur_node = cur_node.next
+            else:
+                for _ in range(int(command[1])):
+                    cur_node = cur_node.prev
         else:
-            answer.append(
-                get_counts(
-                    board[len(query)], query.replace("?", "a"), query.replace("?", "z")
-                )
-            )
-    return answer
+            if cmd == "C":
+                deleted.append(cur_node)
+                state[cur_node.data] = "X"
 
+                prev = cur_node.prev
+                nxt = cur_node.next
 
-def get_counts(arr, left_value, right_value):
-    left = bisect_left(arr, left_value)
-    right = bisect_right(arr, right_value)
-    return right - left
+                if prev:
+                    prev.next = nxt
+                if nxt:
+                    nxt.prev = prev
+
+                if nxt:
+                    cur_node = nxt
+                else:
+                    cur_node = prev
+            else:
+                restore = deleted.pop()
+                state[restore.data] = "O"
+
+                prev = restore.prev
+                nxt = restore.next
+
+                if prev:
+                    prev.next = restore
+                if nxt:
+                    nxt.prev = restore
+    return "".join(state)
 
 
 if __name__ == "__main__":
-    words = ["frodo", "front", "frost", "frozen", "frame", "kakao"]
-    queries = ["fro??", "????o", "fr???", "fro???", "pro?"]
-    print(solution(words, queries))
+    n = 8
+    k = 2
+    cmd = ["D 2", "C", "U 3", "C", "D 4", "C", "U 2", "Z", "Z"]
+    print(solution(n, k, cmd))
