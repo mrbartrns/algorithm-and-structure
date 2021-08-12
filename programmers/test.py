@@ -1,66 +1,54 @@
-class Node:
-    def __init__(self, data):
-        self.prev = None
-        self.next = None
-        self.data = data
+from collections import deque
+
+dy = [-1, 1, 0, 0]
+dx = [0, 0, -1, 1]
+INF = 987654321
 
 
-def solution(n, k, cmds):
-    linked_list = [Node(0)]
-    deleted = []
-    state = ["O"] * n
+def solution(board):
+    visited = [[INF for _ in range(len(board))] for _ in range(len(board))]
+    for i in range(2):
+        y = i
+        x = 1 - i
+        d = 1 - i
+        if board[y][x] == 0:
+            bfs(y, x, d, visited, board)
+    return visited[len(board) - 1][len(board) - 1]
 
-    for i in range(1, n):
-        node = Node(i)
-        prev = linked_list[i - 1]
-        prev.next = node
-        node.prev = prev
-        linked_list.append(node)
 
-    cur_node = linked_list[k]
+def bfs(y, x, d, visited, board):
+    que = deque()
+    visited[y][x] = 100
+    que.append((y, x, d, 100))
 
-    for cmd in cmds:
-        if len(cmd) > 1:
-            command = cmd.split(" ")
-            if command[0] == "D":
-                for _ in range(int(command[1])):
-                    cur_node = cur_node.next
+    while que:
+        y, x, d, cost = que.popleft()
+
+        if y == len(board) - 1 and x == len(board) - 1:
+            continue
+
+        for i in range(4):
+            ny = y + dy[i]
+            nx = x + dx[i]
+
+            if ny < 0 or ny >= len(board) or nx < 0 or nx >= len(board):
+                continue
+
+            if board[ny][nx] == 1:
+                continue
+
+            value = cost
+            if d == i // 2:
+                value += 100
             else:
-                for _ in range(int(command[1])):
-                    cur_node = cur_node.prev
-        else:
-            if cmd == "C":
-                deleted.append(cur_node)
-                state[cur_node.data] = "X"
+                value += 600
 
-                prev = cur_node.prev
-                nxt = cur_node.next
-
-                if prev:
-                    prev.next = nxt
-                if nxt:
-                    nxt.prev = prev
-
-                if nxt:
-                    cur_node = nxt
-                else:
-                    cur_node = prev
-            else:
-                restore = deleted.pop()
-                state[restore.data] = "O"
-
-                prev = restore.prev
-                nxt = restore.next
-
-                if prev:
-                    prev.next = restore
-                if nxt:
-                    nxt.prev = restore
-    return "".join(state)
+            if value <= visited[ny][nx]:
+                visited[ny][nx] = value
+                que.append((ny, nx, i // 2, value))
 
 
-if __name__ == "__main__":
-    n = 8
-    k = 2
-    cmd = ["D 2", "C", "U 3", "C", "D 4", "C", "U 2", "Z", "Z"]
-    print(solution(n, k, cmd))
+if __name__ == '__main__':
+    board = [[0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0],
+             [0, 0, 0, 1, 0, 0, 0, 1], [0, 0, 1, 0, 0, 0, 1, 0], [0, 1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0]]
+    print(solution(board))
