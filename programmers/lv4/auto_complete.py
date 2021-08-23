@@ -33,6 +33,7 @@ def count(node):
     answer = 0
     answer += node.cnt
     if node.cnt > 1:
+        # 마지막 글자라면 nxt node가 없기때문에 에러가 발생하지 않는다.
         for nxt_node in node.nxt:
             answer += count(nxt_node)
     return answer
