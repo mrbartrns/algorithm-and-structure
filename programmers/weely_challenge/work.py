@@ -1,7 +1,6 @@
 # 직업군 추천하기
 
 def solution(table, languages, preference):
-    answer = ''
     arr = []
     idx = []
     for row in table:
