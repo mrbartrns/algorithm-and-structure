@@ -25,7 +25,7 @@ class SinglyLinkedList:
         idx = 0
         curn = self.head
         while curn:
-            if curn.data == data:
+            if curn.idx == data:
                 return idx
             idx += 1
             curn = curn.next
@@ -96,7 +96,7 @@ class SinglyLinkedList:
         string = ""
         curn = self.head
         while curn:
-            string += str(curn.data)
+            string += str(curn.idx)
             if curn.next:
                 string += " -> "
             curn = curn.next

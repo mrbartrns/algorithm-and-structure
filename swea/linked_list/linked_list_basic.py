@@ -29,7 +29,7 @@ class SinglyLinkedList:
         curn = self.head
         idx = 0
         while curn:  # curn이 None이 아닌 동안
-            if curn.data == data:
+            if curn.idx == data:
                 return idx
             curn = curn.next
             idx += 1
@@ -105,7 +105,7 @@ class SinglyLinkedList:
         curn = self.head
         string = ""
         while curn:
-            string += curn.data
+            string += curn.idx
             if curn.next:
                 string += "->"
             curn = curn.next

@@ -22,7 +22,7 @@ class LinkedList:
         curn = self.head
         idx = 0
         while curn:
-            if idx == curn.data:
+            if idx == curn.idx:
                 return idx
             curn = curn.next
             idx += 1
@@ -84,7 +84,7 @@ class LinkedList:
         curn = self.head
         string = ""
         while curn:
-            string += curn.data
+            string += curn.idx
             if curn.next:
                 string += "->"
             curn = curn.next

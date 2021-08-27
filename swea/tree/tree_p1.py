@@ -29,7 +29,7 @@ class Tree:
             visited[0] = True
 
         else:
-            if node.data == parent and (not node.left or not node.right):
+            if node.idx == parent and (not node.left or not node.right):
                 if not node.left:
                     node.left = self._insert_value(node.left, parent, child, visited)
                 elif not node.right:
@@ -43,7 +43,7 @@ class Tree:
 
     def preorder(self, node):
         if node is not None:
-            print(node.data, end=" ")
+            print(node.idx, end=" ")
             if node.left:
                 self.preorder(node.left)
             if node.right:
@@ -57,7 +57,7 @@ class Tree:
         queue = [node]
         while queue:
             to_visit = queue.pop(0)
-            print(to_visit.data, end=" ")
+            print(to_visit.idx, end=" ")
             if to_visit.left:
                 queue.append(to_visit.left)
             if to_visit.right:

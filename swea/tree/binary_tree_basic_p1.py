@@ -38,9 +38,9 @@ class BST:
         if node is None:
             node = Node(data)
         else:
-            if data <= node.data:
+            if data <= node.idx:
                 node.left = self._insert_value(node.left, data)
-            elif data > node.data:
+            elif data > node.idx:
                 node.right = self._insert_value(node.right, data)
         return node
 
@@ -72,9 +72,9 @@ class BST:
             return node
 
         if key < node.data:
-            print("실행 전 node.left:", node.left.data)
+            print("실행 전 node.left:", node.left.idx)
             node.left = self._delete_value(node.left, key)
-            print("실행 후 node.left:", node.left.data)
+            print("실행 후 node.left:", node.left.idx)
             return node  # node를 return 하는 이유?
 
         elif key > node.data:
@@ -93,14 +93,14 @@ class BST:
                 print("두개의 노드")
                 # child node가 두개일때, 우측 node에서 최솟값을 가져온 후, 최솟값을 삭제한다.
                 min_node = self.min_value_node(node.right)
-                node.data = min_node.data
-                node.right = self._delete_value(node.right, min_node.data)
+                node.data = min_node.idx
+                node.right = self._delete_value(node.right, min_node.idx)
                 return node
 
     def inorder(self, node):
         if node is not None:
             self.inorder(node.left)
-            print(node.data, end=" ")
+            print(node.idx, end=" ")
             self.inorder(node.right)
 
 

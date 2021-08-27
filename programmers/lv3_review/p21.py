@@ -25,7 +25,7 @@ class Tree:
         if not node:
             return Node(data, idx)
 
-        if data < node.data:
+        if data < node.idx:
             node.left = self._insert(node.left, data, idx)
         else:
             node.right = self._insert(node.right, data, idx)

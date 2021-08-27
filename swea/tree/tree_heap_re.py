@@ -64,7 +64,7 @@ class BST:
             node = Node(data)
 
         else:
-            if data <= node.data:
+            if data <= node.idx:
                 node.left = self._insert_value(
                     node.left, data
                 )  # 현재 node의 left, right를 지정한다면, 계속해서 하위 depth로 내려가게되고 자동으로 재귀함수는 종료된다.
@@ -95,11 +95,11 @@ class BST:
         """
         if not node:
             return False
-        elif node.data == key:
+        elif node.idx == key:
             return True
 
         else:
-            if key < node.data:
+            if key < node.idx:
                 return self._find_value(node.left, key)
             else:
                 return self._find_value(node.right, key)
@@ -111,7 +111,7 @@ class BST:
         return: minimum value of binary search tree
         """
         if not node.left:
-            return node.data
+            return node.idx
         else:
             return self.get_min_value(node.left)
 
@@ -138,14 +138,14 @@ class BST:
             return None
 
         # case1. key < node.data
-        if key < node.data:
+        if key < node.idx:
             node.left = self._delete_value(
                 node.left, key
             )  # key가 현재 데이터보다 작다면, 노드의 왼쪽방향의 자식노드를 탐색후 제거
             return node  # return된 값을 전달하기 위해 필요함
 
         # case2. key > node.data
-        elif key > node.data:
+        elif key > node.idx:
             node.right = self._delete_value(
                 node.right, key
             )  # key가 현재 데이터보다 크다면, 노드의 오른쪽 방향의 자식노드를 탐색후 제거
@@ -170,9 +170,9 @@ class BST:
             else:
                 # 현재 노드의 오른쪽 노드의 가장 왼쪽 값을 제거한다.
                 min_node = self.get_min_value(node.right)
-                node.data = min_node.data
+                node.idx = min_node.idx
                 node.right = self._delete_value(
-                    node.right, min_node.data
+                    node.right, min_node.idx
                 )  # node 오른쪽 서브트리를 재구성한다.
                 return node  # 바뀐 노드의 정보를 반환
 
@@ -182,7 +182,7 @@ class BST:
         preorder는 루트부터 탐색하여 왼쪽, 아래쪽으로 서브트리를 내려가며 탐색
         """
         if node is not None:
-            print(node.data, end=" ")
+            print(node.idx, end=" ")
             if node.left:
                 self.preorder(node.left)
             if node.right:
@@ -195,7 +195,7 @@ class BST:
         if node is not None:
             if node.left:
                 self.inorder(node.left)
-            print(node.data, end=" ")
+            print(node.idx, end=" ")
             if node.right:
                 self.inorder(node.right)
 
@@ -208,7 +208,7 @@ class BST:
                 self.postorder(node.left)
             if node.right:
                 self.postorder(node.right)
-            print(node.data, end=" ")
+            print(node.idx, end=" ")
 
 
 class MaxHeap:

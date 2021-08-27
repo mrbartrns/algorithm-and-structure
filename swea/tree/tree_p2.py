@@ -18,7 +18,7 @@ class BST:
         if node is None:
             node = Node(data)
         else:
-            if data <= node.data:
+            if data <= node.idx:
                 node.left = self._insert_value(node.left, data)
             else:
                 node.right = self._insert_value(node.right, data)
@@ -26,14 +26,14 @@ class BST:
 
     def get_specific_value(self, node, n):
         if n == 1:
-            return node.data
+            return node.idx
         else:
             queue = [node]
             k = 1
             while queue:
                 to_visit = queue.pop(0)
                 if k == n // 2:
-                    return to_visit.data
+                    return to_visit.idx
                 if to_visit.left:
                     queue.append(to_visit.left)
                 if to_visit.right:
@@ -48,7 +48,7 @@ class BST:
         3. 현재 노드의 오른쪽 서브트리를 순회
         """
         if node is not None:
-            print(node.data, end=" ")
+            print(node.idx, end=" ")
             if node.left:
                 self.preorder(node.left)
             if node.right:
@@ -62,7 +62,7 @@ class BST:
         queue = [node]
         while queue:
             to_visit = queue.pop(0)
-            print(to_visit.data, end=" ")
+            print(to_visit.idx, end=" ")
             if to_visit.left:
                 queue.append(to_visit.left)
             if to_visit.right:
@@ -75,7 +75,7 @@ class BST:
         if node is not None:
             if node.left:
                 self.inorder(node.left)
-            print(node.data, end=" ")
+            print(node.idx, end=" ")
             if node.right:
                 self.inorder(node.right)
 
@@ -115,4 +115,4 @@ for tc in range(t):
     print()
     tree.inorder(tree.root)
     print()
-    print(f"#{tc + 1} {tree.root.data} {tree.get_specific_value(tree.root, n)}")
+    print(f"#{tc + 1} {tree.root.idx} {tree.get_specific_value(tree.root, n)}")

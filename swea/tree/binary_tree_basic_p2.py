@@ -36,7 +36,7 @@ class BST:
         if not node:
             node = Node(data)
         else:
-            if data <= node.data:
+            if data <= node.idx:
                 node.left = self._insert_value(node.left, data)
             else:
                 node.right = self._insert_value(node.right, data)
@@ -68,9 +68,9 @@ class BST:
     def _delete_value(self, node, key):
         if not node:
             return None
-        elif key < node.data:
+        elif key < node.idx:
             node.left = self._delete_value(node.left, key)
-        elif key > node.data:
+        elif key > node.idx:
             node.right = self._delete_value(node.right, key)
         else:
             if not node.left and not node.right:
@@ -81,7 +81,7 @@ class BST:
                 return node.left
             else:
                 min_value = self.get_min_value(node.right)  # node는 현재 지워야 할 대상
-                node.data = min_value.data
+                node.idx = min_value.idx
                 min_value = self._delete_value(min_value, key)
                 return node
 
@@ -94,7 +94,7 @@ class BST:
         3. 현재 노드의 오른쪽 서브트리를 순회
         """
         if node is not None:
-            print(node.data, end=" ")
+            print(node.idx, end=" ")
             if node.left:
                 self.preorder(node.left)
             if node.right:
@@ -110,7 +110,7 @@ class BST:
         if node is not None:
             if node.left:
                 self.inorder(node.left)
-            print(node.data, end=" ")
+            print(node.idx, end=" ")
             if node.right:
                 self.inorder(node.right)
 
@@ -126,7 +126,7 @@ class BST:
                 self.postorder(node.left)
             if node.right:
                 self.postorder(node.right)
-            print(node.data, end=" ")
+            print(node.idx, end=" ")
 
     def levelorder(self, node):
         """
@@ -136,7 +136,7 @@ class BST:
         queue = [node]
         while queue:
             to_visit = queue.pop(0)
-            print(to_visit.data, end=" ")
+            print(to_visit.idx, end=" ")
             if to_visit.left:
                 queue.append(to_visit.left)
             if to_visit.right:

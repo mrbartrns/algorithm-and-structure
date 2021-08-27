@@ -59,7 +59,7 @@ class BST:
 
     def get_min_value(self, node):
         if node.left is None:
-            return node.data
+            return node.idx
         else:
             return self._find_value(self, node.left)
 
@@ -71,10 +71,10 @@ class BST:
         if not node:
             return None
 
-        elif key < node.data:
+        elif key < node.idx:
             node.left = self._delete_value(node.left, key)
             return node
-        elif key > node.data:
+        elif key > node.idx:
             node.right = self._delete_value(node.right, key)
             return node
         else:
@@ -86,13 +86,13 @@ class BST:
                 node = node.right
             else:
                 min_value = self.get_min_value(node.right)
-                node.data = min_value.data
+                node.idx = min_value.data
                 node.right = self._delete_value(node.right, min_value.data)
             return node
 
     def preorder(self, node):
         if node:
-            print(node.data)
+            print(node.idx)
             if node.left:
                 self.preorder(node.left)
             if node.right:
@@ -102,14 +102,14 @@ class BST:
         if node:
             if node.left:
                 self.inorder(node.left)
-            print(node.data)
+            print(node.idx)
             if node.right:
                 self.inorder(node.right)
 
     def postorder(self, node):
         self.postorder(node.left)
         self.postorder(node.right)
-        print(node.data)
+        print(node.idx)
 
     def levelorder(self, node):
         queue = [node]
