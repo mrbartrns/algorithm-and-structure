@@ -18,14 +18,14 @@ def increase(node, word, word_idx):
         return
 
     chk = False
-    for nxt_node in node.nxt:
+    for nxt_node in node.next:
         if nxt_node.alphabet == word[word_idx]:
             chk = True
             increase(nxt_node, word, word_idx + 1)
             break
     if not chk:
         nxt_node = Node(word[word_idx])
-        node.nxt.append(nxt_node)
+        node.next.append(nxt_node)
         increase(nxt_node, word, word_idx + 1)
 
 
@@ -34,7 +34,7 @@ def count(node):
     answer += node.cnt
     if node.cnt > 1:
         # 마지막 글자라면 nxt node가 없기때문에 에러가 발생하지 않는다.
-        for nxt_node in node.nxt:
+        for nxt_node in node.next:
             answer += count(nxt_node)
     return answer
 
