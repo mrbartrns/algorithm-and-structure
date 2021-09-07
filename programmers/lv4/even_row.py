@@ -23,7 +23,9 @@ def solution(a):
                 if be_even_row > row:
                     continue
                 result = (ncr[even_num][k] * ncr[row - even_num][one_cnt - k]) % MOD
-                dp[column + 1][be_even_row] = dp[column + 1][be_even_row] + dp[column][even_num] * result
+                dp[column + 1][be_even_row] = (
+                    dp[column + 1][be_even_row] + dp[column][even_num] * result
+                )
                 dp[column + 1][be_even_row] %= MOD
     return dp[col][row]
 
@@ -60,10 +62,12 @@ def get_binomial_coefficient_recursive(n, r, dp):
         return dp[n][r]
 
     # 이항계수의 정의에 의하여
-    dp[n][r] = get_binomial_coefficient(n - 1, r - 1, dp) + get_binomial_coefficient(n - 1, r, dp)
+    dp[n][r] = get_binomial_coefficient(n - 1, r - 1, dp) + get_binomial_coefficient(
+        n - 1, r, dp
+    )
     return dp[n][r]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     a = [[1, 0, 0, 1, 1], [0, 0, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 0, 0, 1]]
     print(solution(a))
