@@ -1,4 +1,13 @@
+    """행렬의 테두리만 회전시키는 함수
+    가장 왼쪽 위의 좌표를 기준으로 deque 자료구조를 이용하여 삽입한다.
+    삽입시에는 열의 모든 값을 넣는것이 아닌, 항상 하나 적은 값까지 한번의 반복문으로 삽입한다.
+    4개의 반복문을 이용했을 때 모든 반복문으로 큐에 삽입하는 요소의 갯수가 같아야 한다.
+    row + 1, col + 1 만큼 매트릭스를 선언한 후 연산하는것이 편할 수 있다.
+    Returns:
+        [type]: [description]
+    """
 # 행렬 회전하기
+
 from collections import deque
 
 
@@ -20,6 +29,15 @@ def display(que, matrix, query):
 
 
 def get_target(matrix, query):
+    """쿼리에 속한 영역을 바탕으로 매트릭스의 값을 추출하는 함수
+
+    Args:
+        matrix (list): 2-dimension of list
+        query (list): y1, x1, y2, x2 4개의 element로 이루어져 있는 함수
+
+    Returns:
+        deque: deque of elements of matrix
+    """
     y1, x1, y2, x2 = query
     que = deque()
     for j in range(x1, x2):
