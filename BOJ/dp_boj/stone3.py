@@ -6,3 +6,11 @@ si = sys.stdin.readline
 
 N = int(si())
 # 게임은 항상 0번부터 시작 (마지막에 돌을 가져가는 사람이 게임을 이김)
+dp = [0] * 1001
+dp[1] = dp[3] = dp[4] = 1
+
+for i in range(5, N + 1):
+    if min(dp[i - 1], dp[i - 3], dp[i - 4]) == 0:
+        dp[i] = 1
+
+print("SK" if dp[N] == 1 else "CY")
