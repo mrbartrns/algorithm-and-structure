@@ -65,6 +65,7 @@ def bfs():
                     nx2 -= dx[i]
                     check2 = True
 
+                # 두 동전중 하나라도 움직이지 않았을때에만 겹쳐지는 경우의 수가 존재한다.
                 if ny1 == ny2 and nx1 == nx2:
                     if check1:
                         ny2 -= dy[i]
