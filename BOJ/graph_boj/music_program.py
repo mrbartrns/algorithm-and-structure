@@ -32,6 +32,7 @@ indegree = [0] * (N + 1)
 for _ in range(M):
     arr = list(map(int, si().split(" ")))
     for i in range(2, len(arr)):
+        # 이미 정립되어 있는 두 노드 a, b를 중복으로 처리하지 않도록 방지한다.
         if adj[arr[i - 1]][arr[i]] == 0:
             indegree[arr[i]] += 1
             adj[arr[i - 1]][arr[i]] = 1
