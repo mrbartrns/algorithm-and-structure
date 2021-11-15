@@ -7,6 +7,7 @@ si = sys.stdin.readline
 
 
 def dfs(y, x):
+    # 모든 기저사례들을 한번에 관리
     if y < 0 or y >= R:
         return 0
     if x == C:
