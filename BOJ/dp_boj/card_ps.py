@@ -13,4 +13,4 @@ for j in range(1, N + 1):
     for i in range(1, N + 1):
         if i - j >= 0:
             cache[i] = min(cache[i], cache[i - j] + arr[j - 1])
-print(cache[N])
+    print(cache[N])
