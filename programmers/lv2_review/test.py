@@ -1,8 +1,5 @@
-idx = 0
-a, b, c = map(int, input().split())
-for i in range(a):
-    for j in range(b):
-        for k in range(c):
-            idx += 1
-            print(i, j, k)
-print(idx)
+from bisect import bisect_left, bisect_right
+
+arr = [1, 1, 2, 2, 2, 3, 3, 3, 4, 4]
+print(bisect_left(arr, 2))
+print(bisect_right(arr, 2))
