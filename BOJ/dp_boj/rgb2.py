@@ -16,6 +16,7 @@ cache[0][2][2] = arr[0][2]
 
 for i in range(1, N):
     for k in range(3):
+        # 현재 선택한 값의 start_index가 k라면, 바로 이전 값의 start_index도 k여야 한다.
         cache[i][0][k] = min(cache[i - 1][1][k], cache[i - 1][2][k]) + arr[i][0]
         cache[i][1][k] = min(cache[i - 1][0][k], cache[i - 1][2][k]) + arr[i][1]
         cache[i][2][k] = min(cache[i - 1][0][k], cache[i - 1][1][k]) + arr[i][2]
