@@ -9,3 +9,5 @@
 - 좀 더 보기 편하게 회사 별로 문제를 나누기
 - 리뷰는 리뷰로 빼기
 - 백준 문제는 문제 번호로 쓰기
+
+**새로운 레포로 이동하기** [Algorithm-v2](https://github.com/mrbartrns/algorithm-v2)
